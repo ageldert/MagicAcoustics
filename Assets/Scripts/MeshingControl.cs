@@ -41,6 +41,11 @@ public class MeshingControl : MonoBehaviour
 
     public float CalculateNormal(RaycastHit hit)
     {
+        if (hit.collider.gameObject.TryGetComponent<MeshRenderer>(out MeshRenderer target))
+        {
+            target.material = visMaterial;
+        }
+
         Vector3 hitNormal = hit.normal;
         if (!GLOBALS.measureHeight)
             hitNormal.y = 0f;

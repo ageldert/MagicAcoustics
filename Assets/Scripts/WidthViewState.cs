@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class WidthViewState : State
 {
-    public WidthViewState(UserControl userControl, Text header) : base(userControl, header)
+    public WidthViewState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -32,12 +32,12 @@ public class WidthViewState : State
 
     public override void OnTriggerUp()
     {
-        userControl.SetState(new HeightState(userControl, header));
+        userControl.SetState(new HeightState(userControl, header, columns));
     }
 
     public override void OnBumperUp()
     {
-        userControl.SetState(new WidthState(userControl, header));
+        userControl.SetState(new WidthState(userControl, header, columns));
     }
 
 }

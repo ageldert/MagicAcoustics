@@ -10,6 +10,7 @@ public class UserControl : MonoBehaviour
 
     [SerializeField] public MeshingControl meshingControl;
     [SerializeField] private Text header;
+    [SerializeField] private List<Text> columns;
 
     private MLInputController _controller;
     private LineRenderer _controlBeam;
@@ -26,7 +27,8 @@ public class UserControl : MonoBehaviour
         _controller = MLInput.GetController(MLInput.Hand.Left);
         _controlBeam = GetComponent<LineRenderer>();
 
-        SetState(new RoomScanState(this, header));
+        SetState(new RoomScanState(this, header, columns));
+        roomModel = new RoomModel();
     }
 
     private void Update()

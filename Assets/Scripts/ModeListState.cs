@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ModeListState : State
 {
-    public ModeListState(UserControl userControl, Text header) : base(userControl, header)
+    public ModeListState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -13,21 +13,22 @@ public class ModeListState : State
     public override void Tick()
     {
         // Update
-        userControl.roomModel.dimensions.y = userControl.HandleBeam();
+        
     }
 
     public override void OnStateEnter()
     {
-        GLOBALS.meshVisible = true;
+        GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = true;
-        userControl.EnableBeam(true);
+        GLOBALS.measureHeight = false;
+        userControl.EnableBeam(false);
         userControl.roomModel.CalculateModes();
 
-        header.text = "MODES:\n" +
-                        userControl.roomModel.ModeDisplay(new Vector3Int(1, 0, 0)) + "\n" +
-                        userControl.roomModel.ModeDisplay(new Vector3Int(0, 1, 0)) + "\n" +
-                        userControl.roomModel.ModeDisplay(new Vector3Int(0, 0, 1));
+        header.text = "MODAL RESONANCES - (L,W,H)\n";
+        for(int i = 0; i < 3; i++)
+        {
+            columns[i].text = userControl.roomModel.DisplayAllModesAxial(i+1);
+        }
     }
 
     public override void OnStateExit()

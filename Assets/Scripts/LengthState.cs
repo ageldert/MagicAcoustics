@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class LengthState : State
 {
-    public LengthState(UserControl userControl, Text header) : base(userControl, header)
+    public LengthState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -12,18 +12,19 @@ public class LengthState : State
     public override void Tick()
     {
         // Update
-        userControl.roomModel.dimensions.z = userControl.HandleBeam();
+        userControl.meshingControl.UpdateMeshMaterial();
+        float l = userControl.roomModel.dimensions.z = userControl.HandleBeam();
+        header.text = "Select a surface normal to the room LENGTH\n" +
+                        "LENGTH: " + l.ToString(GLOBALS.format) + "m\n" +
+                        "TRIGGER: select";
     }
 
     public override void OnStateEnter()
     {
-        GLOBALS.meshVisible = true;
+        GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(true);
-        header.text = "Select a surface normal to the room LENGTH\n" +
-                        "LENGTH: " + userControl.roomModel.dimensions.z.ToString(GLOBALS.format) + "m\n" +
-                        "TRIGGER: select";
     }
 
     public override void OnStateExit()
@@ -34,7 +35,7 @@ public class LengthState : State
     public override void OnTriggerUp()
     {
         userControl.EnableBeam(false);
-        userControl.SetState(new LengthViewState(userControl, header));
+        userControl.SetState(new LengthViewState(userControl, header, columns));
     }
 
     public override void OnBumperUp()

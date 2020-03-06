@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class WidthState : State
 {
-    public WidthState(UserControl userControl, Text header) : base(userControl, header)
+    public WidthState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -12,18 +12,19 @@ public class WidthState : State
     public override void Tick()
     {
         // Update
-        userControl.roomModel.dimensions.x = userControl.HandleBeam();
+        userControl.meshingControl.UpdateMeshMaterial(); userControl.meshingControl.UpdateMeshMaterial();
+        float w = userControl.roomModel.dimensions.x = userControl.HandleBeam();
+        header.text = "Select a surface normal to the room WIDTH\n" +
+                        "WIDTH: " + w.ToString(GLOBALS.format) + "m\n" +
+                        "TRIGGER: select";
     }
 
     public override void OnStateEnter()
     {
-        GLOBALS.meshVisible = true;
+        GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(true);
-        header.text = "Select a surface normal to the room WIDTH\n" +
-                        "WIDTH: " + userControl.roomModel.dimensions.x.ToString(GLOBALS.format) + "m\n" +
-                        "TRIGGER: select";
     }
 
     public override void OnStateExit()
@@ -34,7 +35,7 @@ public class WidthState : State
     public override void OnTriggerUp()
     {
         userControl.EnableBeam(false);
-        userControl.SetState(new WidthViewState(userControl, header));
+        userControl.SetState(new WidthViewState(userControl, header, columns));
     }
 
     public override void OnBumperUp()

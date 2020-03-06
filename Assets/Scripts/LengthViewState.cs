@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class LengthViewState : State
 {
-    public LengthViewState(UserControl userControl, Text header) : base(userControl, header)
+    public LengthViewState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -32,12 +32,12 @@ public class LengthViewState : State
 
     public override void OnTriggerUp()
     {
-        userControl.SetState(new WidthState(userControl, header));
+        userControl.SetState(new WidthState(userControl, header, columns));
     }
 
     public override void OnBumperUp()
     {
-        userControl.SetState(new LengthState(userControl, header));
+        userControl.SetState(new LengthState(userControl, header, columns));
     }
 
 }

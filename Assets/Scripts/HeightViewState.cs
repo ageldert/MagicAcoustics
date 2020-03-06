@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HeightViewState : State
 {
-    public HeightViewState(UserControl userControl, Text header) : base(userControl, header)
+    public HeightViewState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -16,7 +16,6 @@ public class HeightViewState : State
 
     public override void OnStateEnter()
     {
-        GLOBALS.meshVisible = true;
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
@@ -32,12 +31,12 @@ public class HeightViewState : State
 
     public override void OnTriggerUp()
     {
-        userControl.SetState(new ModeListState(userControl, header));
+        userControl.SetState(new ModeListState(userControl, header, columns));
     }
 
     public override void OnBumperUp()
     {
-        userControl.SetState(new HeightState(userControl, header));
+        userControl.SetState(new HeightState(userControl, header, columns));
     }
 
 }

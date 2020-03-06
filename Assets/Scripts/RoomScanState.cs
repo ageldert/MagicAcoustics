@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class RoomScanState : State
 {
-    public RoomScanState(UserControl userControl, Text header) : base(userControl, header)
+    public RoomScanState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -43,6 +43,6 @@ public class RoomScanState : State
 
     public override void OnTriggerUp()
     {
-        userControl.SetState(new LengthState(userControl, header));
+        userControl.SetState(new LengthState(userControl, header, columns));
     }
 }

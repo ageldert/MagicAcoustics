@@ -7,6 +7,7 @@ public abstract class State
 {
     protected UserControl userControl;
     protected Text header;
+    protected List<Text> columns;
     //protected Text body;
     //protected Text footer;
 
@@ -18,9 +19,10 @@ public abstract class State
     public virtual void OnBumperUp() { }
     public virtual void OnHomeUp() { }
 
-    public State(UserControl userControl, Text header)
+    public State(UserControl userControl, Text header, List<Text> columns = null)
     {
         this.userControl = userControl;
         this.header = header;
+        this.columns = columns;
     }
 }

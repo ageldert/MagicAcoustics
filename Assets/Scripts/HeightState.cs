@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HeightState : State
 {
-    public HeightState(UserControl userControl, Text header) : base(userControl, header)
+    public HeightState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
     }
@@ -12,21 +12,22 @@ public class HeightState : State
     public override void Tick()
     {
         // Update
-        userControl.roomModel.dimensions.y = userControl.HandleBeam();
+        userControl.meshingControl.UpdateMeshMaterial();
+        float h = userControl.roomModel.dimensions.y = userControl.HandleBeam();
+        header.text = "Lastly, select a floor or ceiling normal to the room HEIGHT\n" +
+                        "HEIGHT: " + h.ToString(GLOBALS.format) + "m\n" +
+                        "TRIGGER: select";
     }
 
     public override void OnStateEnter()
     {
-        GLOBALS.meshVisible = true;
+        GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = true;
         userControl.EnableBeam(true);
-        header.text = "Lastly, select a floor or ceiling normal to the room HEIGHT\n" +
-                        "HEIGHT: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + "m\n" +
-                        "TRIGGER: select";
     }
 
-    public override void OnStateExit()
+public override void OnStateExit()
     {
         
     }
@@ -34,7 +35,7 @@ public class HeightState : State
     public override void OnTriggerUp()
     {
         userControl.EnableBeam(false);
-        userControl.SetState(new HeightViewState(userControl, header));
+        userControl.SetState(new HeightViewState(userControl, header, columns));
     }
 
 }

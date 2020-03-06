@@ -15,7 +15,15 @@ public static class GLOBALS
     // actively using MLSpatialMapper
     public static bool isMeshing = false;
     // precision of digits
-    public const string format = "F1";
+    public const string format = "F2";
     // L, W, H?
     public static bool measureHeight = false;
 }
+
+/*  Consider 3dB differences axial, tangential, oblique
+ *  build all pole filter (inverse comb)
+ *  to plot the frequency response
+ *  
+ *  
+ *  
+ */
