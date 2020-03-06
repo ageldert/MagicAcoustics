@@ -5,35 +5,61 @@ using UnityEngine.XR.MagicLeap;
 
 public class UserControl : MonoBehaviour
 {
+    private State currentState;
+    public RoomModel roomModel;
+
+    [SerializeField] private MeshingControl meshingControl;
+
     private MLInputController _controller;
     private LineRenderer _controlBeam;
-
-    void Start()
+    
+    private void Start()
     {
         if (!MLInput.IsStarted)
             MLInput.Start();
-        _controller = MLInput.GetController(MLInput.Hand.Left);
-        _controlBeam = GetComponent<LineRenderer>();
         MLInput.OnControllerButtonUp += OnButtonUp;
         MLInput.OnTriggerUp += OnTriggerUp;
+
+        _controller = MLInput.GetController(MLInput.Hand.Left);
+        _controlBeam = GetComponent<LineRenderer>();
+
+        SetState(new RoomScanState(this));
     }
 
-    void Update()
+    private void Update()
     {
-        if (_controlBeam.enabled)
-            HandleBeam();
+        currentState.Tick();
+        //if (_controlBeam.enabled)
+        //    HandleBeam();
     }
 
-    private void HandleBeam()
+    public void SetState(State state)
     {
-        Vector3 beamEnd;
-        RaycastHit hit;
+        if (currentState != null)
+            currentState.OnStateExit();
+
+        currentState = state;
+
+        if (currentState != null)
+            currentState.OnStateEnter();
+    }
+
+    public void EnableBeam(bool enabled)
+    {   _controlBeam.enabled = enabled; }
+
+    public void HandleBeam()
+    {
         float beamLength = 1f;
-        if (Physics.Raycast(_controller.Position, _controller.Position + transform.forward, out hit, Mathf.Infinity))
+        Vector3 beamEnd = _controller.Position + (transform.forward * beamLength); ;
+        if (Physics.Raycast(_controller.Position, _controller.Position + transform.forward, out RaycastHit hit, Mathf.Infinity))
         {
-            beamLength = hit.distance;
+            beamEnd = hit.point;
+            meshingControl.DisplayNormal(hit);
         }
-        beamEnd = _controller.Position + (transform.forward * beamLength);
+        else
+        {
+            meshingControl.HideNormal();
+        }
         _controlBeam.SetPosition(0, _controller.Position);
         _controlBeam.SetPosition(1, beamEnd);
     }
@@ -42,20 +68,18 @@ public class UserControl : MonoBehaviour
     {
         if (button == MLInputControllerButton.Bumper)
         {
-            // toggle meshing
-            GLOBALS.isMeshing = GLOBALS.isMeshing ? false : true;
+            currentState.OnBumperUp();
         }
         else if (button == MLInputControllerButton.HomeTap)
         {
-            // change materials
-            GLOBALS.meshVisible = GLOBALS.meshVisible ? false : true;
+            currentState.OnHomeUp();
         }
+        
     }
 
     private void OnTriggerUp(byte controllerId, float pressure)
     {
-        // raycast to a mesh and show its normals
-        _controlBeam.enabled = _controlBeam.enabled ? false : true;
+        currentState.OnTriggerUp();
     }
 
     private void OnDisable()
