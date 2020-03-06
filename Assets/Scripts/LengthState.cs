@@ -12,7 +12,7 @@ public class LengthState : State
     public override void Tick()
     {
         // Update
-        userControl.HandleBeam();
+        GLOBALS.roomModel.dimensions.z = userControl.HandleBeam();
     }
 
     public override void OnStateEnter()
@@ -22,17 +22,24 @@ public class LengthState : State
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(true);
         header.text = "Select a surface normal to the room LENGTH\n" +
+                        "LENGTH: " + GLOBALS.roomModel.dimensions.z.ToString(GLOBALS.format) + "m\n" +
                         "TRIGGER: select";
     }
 
     public override void OnStateExit()
     {
-        GLOBALS.isMeshing = false;
+
     }
 
     public override void OnTriggerUp()
     {
-        userControl.SetState(new WidthState(userControl, header));
+        userControl.EnableBeam(false);
+        userControl.SetState(new LengthViewState(userControl, header));
+    }
+
+    public override void OnBumperUp()
+    {
+        
     }
 
 }

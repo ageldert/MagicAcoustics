@@ -16,4 +16,6 @@ public static class GLOBALS
     public const string format = "F2";
     // L, W, H?
     public static bool measureHeight = false;
+    // stores room measurements
+    public static RoomModel roomModel = new RoomModel();
 }

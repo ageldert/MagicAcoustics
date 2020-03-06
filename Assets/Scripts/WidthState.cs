@@ -12,7 +12,7 @@ public class WidthState : State
     public override void Tick()
     {
         // Update
-        userControl.HandleBeam();
+        GLOBALS.roomModel.dimensions.x = userControl.HandleBeam();
     }
 
     public override void OnStateEnter()
@@ -21,17 +21,25 @@ public class WidthState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(true);
-        header.text = "Now, select a surface normal to the room WIDTH\n" +
+        header.text = "Select a surface normal to the room WIDTH\n" +
+                        "WIDTH: " + GLOBALS.roomModel.dimensions.x.ToString(GLOBALS.format) + "m\n" +
                         "TRIGGER: select";
     }
 
     public override void OnStateExit()
     {
-        GLOBALS.isMeshing = false;
+        
     }
 
     public override void OnTriggerUp()
     {
-        userControl.SetState(new HeightState(userControl, header));
+        userControl.EnableBeam(false);
+        userControl.SetState(new WidthViewState(userControl, header));
     }
+
+    public override void OnBumperUp()
+    {
+
+    }
+
 }
