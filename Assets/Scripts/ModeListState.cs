@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ModeListState : State
@@ -21,8 +22,12 @@ public class ModeListState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = true;
         userControl.EnableBeam(true);
-        header.text = "THE MODES ARE:\n" +
-                        "TRIGGER: select";
+        userControl.roomModel.CalculateModes();
+
+        header.text = "MODES:\n" +
+                        userControl.roomModel.ModeDisplay(new Vector3Int(1, 0, 0)) + "\n" +
+                        userControl.roomModel.ModeDisplay(new Vector3Int(0, 1, 0)) + "\n" +
+                        userControl.roomModel.ModeDisplay(new Vector3Int(0, 0, 1));
     }
 
     public override void OnStateExit()

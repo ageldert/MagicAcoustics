@@ -15,7 +15,7 @@ public static class GLOBALS
     // actively using MLSpatialMapper
     public static bool isMeshing = false;
     // precision of digits
-    public const string format = "F2";
+    public const string format = "F1";
     // L, W, H?
     public static bool measureHeight = false;
 }

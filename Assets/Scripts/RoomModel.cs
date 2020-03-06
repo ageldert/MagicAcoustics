@@ -31,7 +31,7 @@ public class RoomModel
         return answer;
     }
 
-    public void CalculateAxialModes()
+    public void CalculateModes()
     {
         // are we looking at the FIRST y order: do we need to increment y or x?
         bool firstY = false;
