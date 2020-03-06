@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.MagicLeap;
+using UnityEngine.UI;
 
 public class UserControl : MonoBehaviour
 {
     private State currentState;
     public RoomModel roomModel;
 
-    [SerializeField] private MeshingControl meshingControl;
+    [SerializeField] public MeshingControl meshingControl;
+    [SerializeField] private Text header;
+    [SerializeField] private Text body;
 
     private MLInputController _controller;
     private LineRenderer _controlBeam;
@@ -23,14 +26,12 @@ public class UserControl : MonoBehaviour
         _controller = MLInput.GetController(MLInput.Hand.Left);
         _controlBeam = GetComponent<LineRenderer>();
 
-        SetState(new RoomScanState(this));
+        SetState(new RoomScanState(this, header));
     }
 
     private void Update()
     {
         currentState.Tick();
-        //if (_controlBeam.enabled)
-        //    HandleBeam();
     }
 
     public void SetState(State state)
@@ -49,19 +50,18 @@ public class UserControl : MonoBehaviour
 
     public void HandleBeam()
     {
-        float beamLength = 1f;
-        Vector3 beamEnd = _controller.Position + (transform.forward * beamLength); ;
-        if (Physics.Raycast(_controller.Position, _controller.Position + transform.forward, out RaycastHit hit, Mathf.Infinity))
+        float measured = 0.0f;
+        if (Physics.Raycast(_controller.Position, transform.forward, out RaycastHit hit, 30f))
         {
-            beamEnd = hit.point;
-            meshingControl.DisplayNormal(hit);
+            _controlBeam.SetPosition(0, _controller.Position);
+            _controlBeam.SetPosition(1, hit.point);
+            measured = meshingControl.CalculateNormal(hit);
         }
         else
         {
             meshingControl.HideNormal();
         }
-        _controlBeam.SetPosition(0, _controller.Position);
-        _controlBeam.SetPosition(1, beamEnd);
+        body.text = measured.ToString(GLOBALS.format) + "m";
     }
 
     private void OnButtonUp(byte controllerId, MLInputControllerButton button)

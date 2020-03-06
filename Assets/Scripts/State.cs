@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class State
 {
     protected UserControl userControl;
+    protected Text header;
+    //protected Text body;
+    //protected Text footer;
 
     public abstract void Tick();
 
@@ -14,8 +18,9 @@ public abstract class State
     public virtual void OnBumperUp() { }
     public virtual void OnHomeUp() { }
 
-    public State(UserControl userControl)
+    public State(UserControl userControl, Text header)
     {
         this.userControl = userControl;
+        this.header = header;
     }
 }

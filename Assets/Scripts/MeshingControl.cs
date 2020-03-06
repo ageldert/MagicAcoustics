@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.MagicLeap;
 
 public class MeshingControl : MonoBehaviour
@@ -7,12 +8,12 @@ public class MeshingControl : MonoBehaviour
     [SerializeField] private MLSpatialMapper mapper;
     [SerializeField] private Material visMaterial;
     [SerializeField] private Material invisMaterial;
-    LineRenderer _meshNormal;
+    private LineRenderer _meshNormal;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    //private void Awake()
+    //{
+    //    DontDestroyOnLoad(this.gameObject);
+    //}
 
     void Start()
     {
@@ -23,8 +24,7 @@ public class MeshingControl : MonoBehaviour
     void Update()
     {
         mapper.enabled = GLOBALS.isMeshing;
-        if (mapper.enabled)
-            UpdateMeshMaterial();
+        //if (mapper.enabled)
     }
 
     public void UpdateMeshMaterial()
@@ -39,11 +39,29 @@ public class MeshingControl : MonoBehaviour
         }
     }
 
-    public void DisplayNormal(RaycastHit hit)
+    public float CalculateNormal(RaycastHit hit)
     {
-        _meshNormal.SetPosition(0, hit.point);
-        _meshNormal.SetPosition(1, hit.point + hit.normal * 0.4f);
-        _meshNormal.enabled = true;
+        Vector3 hitNormal = hit.normal;
+        if (!GLOBALS.measureHeight)
+            hitNormal.y = 0f;
+        else
+        {
+            hitNormal.x = 0f;
+            hitNormal.z = 0f;
+        }
+
+        if (Physics.Raycast(hit.point, hitNormal, out RaycastHit normalHit, 30f))
+        {
+            _meshNormal.SetPosition(0, hit.point);
+            _meshNormal.SetPosition(1, normalHit.point);
+            _meshNormal.enabled = true;
+            return normalHit.distance;
+        }
+        else
+        {
+            _meshNormal.enabled = false;
+            return 0.0f;
+        }
     }
 
     public void HideNormal()

@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomScanState : State
 {
-    public RoomScanState(UserControl userControl) : base(userControl)
+    public RoomScanState(UserControl userControl, Text header) : base(userControl, header)
     {
         // default constructor
     }
@@ -12,6 +12,7 @@ public class RoomScanState : State
     public override void Tick()
     {
         // Update
+        userControl.meshingControl.UpdateMeshMaterial();
     }
 
     public override void OnStateEnter()
@@ -19,6 +20,9 @@ public class RoomScanState : State
         GLOBALS.meshVisible = true;
         GLOBALS.isMeshing = true;
         userControl.EnableBeam(false);
+        header.text =   "BUMPER: pause/resume scanning\n" + 
+                        "HOME: show/hide mesh\n" +
+                        "TRIGGER: finish scan";
     }
 
     public override void OnStateExit()
@@ -35,5 +39,10 @@ public class RoomScanState : State
     {
         // change materials
         GLOBALS.meshVisible = GLOBALS.meshVisible ? false : true;
+    }
+
+    public override void OnTriggerUp()
+    {
+        userControl.SetState(new LengthState(userControl, header));
     }
 }
