@@ -7,6 +7,5 @@ public class RoomModel
     // stores the length (z), width (x), and height (y) of the room
     public Vector3 dimensions;
 
-    public float maxModeFreq = 300f;
-
+    public float MaxModeFreq { get; set; } = 300f;
 }

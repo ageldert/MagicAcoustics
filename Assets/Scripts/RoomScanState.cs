@@ -17,9 +17,8 @@ public class RoomScanState : State
     public override void OnStateEnter()
     {
         GLOBALS.meshVisible = true;
+        GLOBALS.isMeshing = true;
         userControl.EnableBeam(false);
-
-
     }
 
     public override void OnStateExit()
