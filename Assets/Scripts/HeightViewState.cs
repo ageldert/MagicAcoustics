@@ -20,7 +20,7 @@ public class HeightViewState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
-        header.text = "HEIGHT: " + GLOBALS.roomModel.dimensions.y.ToString(GLOBALS.format) + "m\n" +
+        header.text = "HEIGHT: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + "m\n" +
                         "TRIGGER: continue\n" +
                         "BUMPER: remeasure";
     }

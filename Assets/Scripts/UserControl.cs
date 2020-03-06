@@ -13,6 +13,8 @@ public class UserControl : MonoBehaviour
 
     private MLInputController _controller;
     private LineRenderer _controlBeam;
+
+    public RoomModel roomModel;
     
     private void Start()
     {

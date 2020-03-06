@@ -20,7 +20,7 @@ public class LengthViewState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
-        header.text = "LENGTH: " + GLOBALS.roomModel.dimensions.z.ToString(GLOBALS.format) + "m\n" +
+        header.text = "LENGTH: " + userControl.roomModel.dimensions.z.ToString(GLOBALS.format) + "m\n" +
                         "TRIGGER: continue\n" +
                         "BUMPER: remeasure";
     }

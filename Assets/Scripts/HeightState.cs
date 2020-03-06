@@ -12,7 +12,7 @@ public class HeightState : State
     public override void Tick()
     {
         // Update
-        GLOBALS.roomModel.dimensions.y = userControl.HandleBeam();
+        userControl.roomModel.dimensions.y = userControl.HandleBeam();
     }
 
     public override void OnStateEnter()
@@ -22,7 +22,7 @@ public class HeightState : State
         GLOBALS.measureHeight = true;
         userControl.EnableBeam(true);
         header.text = "Lastly, select a floor or ceiling normal to the room HEIGHT\n" +
-                        "HEIGHT: " + GLOBALS.roomModel.dimensions.y.ToString(GLOBALS.format) + "m\n" +
+                        "HEIGHT: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + "m\n" +
                         "TRIGGER: select";
     }
 

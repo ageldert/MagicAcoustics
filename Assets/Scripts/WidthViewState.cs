@@ -20,7 +20,7 @@ public class WidthViewState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
-        header.text = "WIDTH: " + GLOBALS.roomModel.dimensions.x.ToString(GLOBALS.format) + "m\n" +
+        header.text = "WIDTH: " + userControl.roomModel.dimensions.x.ToString(GLOBALS.format) + "m\n" +
                         "TRIGGER: continue\n" +
                         "BUMPER: remeasure";
     }

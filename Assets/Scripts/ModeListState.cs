@@ -12,7 +12,7 @@ public class ModeListState : State
     public override void Tick()
     {
         // Update
-        GLOBALS.roomModel.dimensions.y = userControl.HandleBeam();
+        userControl.roomModel.dimensions.y = userControl.HandleBeam();
     }
 
     public override void OnStateEnter()

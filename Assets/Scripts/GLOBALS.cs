@@ -8,6 +8,8 @@ public static class GLOBALS
     public static bool inFeet = false;
     // conversion value
     public const float m2ft = 3.28084f;
+    // speed of sound
+    public const float c = 343f;
     // room mesh visibility
     public static bool meshVisible = true;
     // actively using MLSpatialMapper
@@ -16,6 +18,4 @@ public static class GLOBALS
     public const string format = "F2";
     // L, W, H?
     public static bool measureHeight = false;
-    // stores room measurements
-    public static RoomModel roomModel = new RoomModel();
 }
