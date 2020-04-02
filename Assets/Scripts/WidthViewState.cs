@@ -16,7 +16,6 @@ public class WidthViewState : State
 
     public override void OnStateEnter()
     {
-        GLOBALS.meshVisible = true;
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);

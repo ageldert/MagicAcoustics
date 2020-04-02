@@ -10,11 +10,6 @@ public class MeshingControl : MonoBehaviour
     [SerializeField] private Material invisMaterial;
     private LineRenderer _meshNormal;
 
-    //private void Awake()
-    //{
-    //    DontDestroyOnLoad(this.gameObject);
-    //}
-
     void Start()
     {
         _meshNormal = GetComponent<LineRenderer>();
@@ -24,7 +19,6 @@ public class MeshingControl : MonoBehaviour
     void Update()
     {
         mapper.enabled = GLOBALS.isMeshing;
-        //if (mapper.enabled)
     }
 
     public void UpdateMeshMaterial()
