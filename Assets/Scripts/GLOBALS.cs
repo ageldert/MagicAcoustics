@@ -20,6 +20,15 @@ public static class GLOBALS
     public static bool measureHeight = false;
 }
 
+// Mode struct is used for plotting
+// Dictionary used instead for storage in RoomModel
+public struct Mode
+{
+    public float freq;
+    public Vector3Int order;
+    public float mag;
+};
+
 /*  Consider 3dB differences axial, tangential, oblique
  *  build all pole filter (inverse comb)
  *  to plot the frequency response

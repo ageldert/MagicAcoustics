@@ -10,7 +10,7 @@ public class RoomModel
     public float surfaceArea;   // ft^2
     public float meanFreePath;  // 4V/Sa (ft)
 
-    public float MaxModeFreq { get; set; } = 240f;
+    public float MaxModeFreq { get; set; } = 280f;
 
     private Dictionary<Vector3Int, float> modes;
 
@@ -106,7 +106,7 @@ public class RoomModel
 
     public int GetModeMagnitude(Vector3Int order)
     {
-        // Returns a value from -60 to 0 (dB) representing mode strength
+        // Returns a value from -20 to 0 (dB) representing mode strength
         // Mode strength is NOT location-specific
         // Modeling with 0 dB axial, -3 dB tangential, -6 dB oblique
         // Modeling with -2 dB for increasing mode order
@@ -128,6 +128,8 @@ public class RoomModel
         }
         return mag;
     }
+
+
 
     public void CalcDimensions()
     {

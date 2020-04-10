@@ -4,27 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.MagicLeap;
 
-public class ModeListState : State
+public class ModePlotState : State
 {
-    public ModeListState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
+    private ModePlot modePlot;
+
+    public ModePlotState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        modePlot = new ModePlot();
     }
 
     public override void Tick()
     {
         // Update
-        
+
     }
     public override void OnTouchGesture()
     {
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Left:
-                userControl.SetState(new RoomDimState(userControl, header, columns));
+                userControl.SetState(new ModeListState(userControl, header, columns));
                 break;
             case MLInputControllerTouchpadGestureDirection.Right:
-                userControl.SetState(new ModePlotState(userControl, header, columns));
+                
                 break;
         }
     }
@@ -35,13 +37,10 @@ public class ModeListState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
-        userControl.roomModel.CalcModes();
 
-        header.text = "MODAL RESONANCES - (L,W,H)\n";
-        for(int i = 0; i < 3; i++)
-        {
-            columns[i].text = userControl.roomModel.DisplayAllModesAxial(i+1);
-        }
+        modePlot.Initialize();
+
+
     }
 
     public override void OnStateExit()
@@ -51,7 +50,7 @@ public class ModeListState : State
 
     public override void OnTriggerUp()
     {
-        //userControl.SetState(new HeightState(userControl, header));
+        
     }
 
 }

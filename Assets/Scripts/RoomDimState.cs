@@ -25,7 +25,7 @@ public class RoomDimState : State
 
                 break;
             case MLInputControllerTouchpadGestureDirection.Right:
-
+                userControl.SetState(new ModeListState(userControl, header, columns));
                 break;
         }
     }
@@ -47,7 +47,7 @@ public class RoomDimState : State
         columns[1].text += "Surface Area: " + userControl.roomModel.surfaceArea.ToString(GLOBALS.format) + " ft²\n";
         columns[1].text += "Volume: " + userControl.roomModel.volume.ToString(GLOBALS.format) + " ft³\n";
         columns[1].text += "Mean Free Path: " + userControl.roomModel.meanFreePath.ToString(GLOBALS.format) + " ft\n";
-
+        // anything else?
     }
 
     public override void OnStateExit()
