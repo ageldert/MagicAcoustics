@@ -6,16 +6,17 @@ using UnityEngine.UI;
 
 public class UserControl : MonoBehaviour
 {
-    private State currentState;
 
     [SerializeField] public MeshingControl meshingControl;
     [SerializeField] private Text header;
     [SerializeField] private List<Text> columns;
 
-    private MLInputController _controller;
+    public RoomModel roomModel;
+    public MLInputController _controller;
+
+    private State currentState;
     private LineRenderer _controlBeam;
 
-    public RoomModel roomModel;
     
     private void Start()
     {
@@ -23,7 +24,7 @@ public class UserControl : MonoBehaviour
             MLInput.Start();
         MLInput.OnControllerButtonUp += OnButtonUp;
         MLInput.OnTriggerUp += OnTriggerUp;
-
+        MLInput.OnControllerTouchpadGestureStart += OnTouchGesture;
         _controller = MLInput.GetController(MLInput.Hand.Left);
         _controlBeam = GetComponent<LineRenderer>();
 
@@ -82,6 +83,12 @@ public class UserControl : MonoBehaviour
     private void OnTriggerUp(byte controllerId, float pressure)
     {
         currentState.OnTriggerUp();
+    }
+
+    private void OnTouchGesture(byte controllerId, MLInputControllerTouchpadGesture touchpadGesture)
+    {
+        currentState.OnTouchGesture();
+
     }
 
     private void OnDisable()

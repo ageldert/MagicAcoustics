@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class GLOBALS
 {
-    // default units are meters
-    public static bool inFeet = false;
+    // Unity default units are meters
+    public static bool inFeet = true;
     // conversion value
     public const float m2ft = 3.28084f;
     // speed of sound
@@ -24,6 +24,12 @@ public static class GLOBALS
  *  build all pole filter (inverse comb)
  *  to plot the frequency response
  *  
- *  
- *  
+ *  Create plot of lines of modes 
+ *
+ *  Horizontal swipe during mode view for:
+ *      - Axial Mode Display
+ *      - Tangential, Oblique Mode Display
+ *      - Mode frequency lines
+ *      - Room volume, surface area, MFP
+ *      -
  */

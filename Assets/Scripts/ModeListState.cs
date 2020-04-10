@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.MagicLeap;
 
 public class ModeListState : State
 {
@@ -15,6 +16,18 @@ public class ModeListState : State
         // Update
         
     }
+    public override void OnTouchGesture()
+    {
+        switch (controller.TouchpadGesture.Direction)
+        {
+            case MLInputControllerTouchpadGestureDirection.Left:
+
+                break;
+            case MLInputControllerTouchpadGestureDirection.Right:
+
+                break;
+        }
+    }
 
     public override void OnStateEnter()
     {
@@ -22,7 +35,7 @@ public class ModeListState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
-        userControl.roomModel.CalculateModes();
+        userControl.roomModel.CalcModes();
 
         header.text = "MODAL RESONANCES - (L,W,H)\n";
         for(int i = 0; i < 3; i++)

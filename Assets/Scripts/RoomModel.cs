@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class RoomModel
 {
-    // stores the length (z), width (x), and height (y) of the room
+    // stores the length (z), width (x), and height (y) of the room in veet
     public Vector3 dimensions;
+    public float volume;    // ft^3
+    public float surfaceArea;   // ft^2
+    public float meanFreePath;  // 4V/Sa (ft)
 
-    public float MaxModeFreq { get; set; } = 200f;
+    public float MaxModeFreq { get; set; } = 240f;
 
     private Dictionary<Vector3Int, float> modes;
 
@@ -101,7 +104,41 @@ public class RoomModel
                                 mode.Value.ToString("F1") + " Hz\n";
     }
 
-    public void CalculateModes()
+    public int GetModeMagnitude(Vector3Int order)
+    {
+        // Returns a value from -60 to 0 (dB) representing mode strength
+        // Mode strength is NOT location-specific
+        // Modeling with 0 dB axial, -3 dB tangential, -6 dB oblique
+        // Modeling with -2 dB for increasing mode order
+        int mag = 3; // there always is a 1st order -3 dB to offset for
+        if (order.x > 0)
+        {
+            mag -= 3;   // axial, tangential, oblique
+            mag -= 2 * (order.x - 1);   // mode order
+        }
+        if (order.y > 0)
+        {
+            mag -= 3;   // axial, tangential, oblique
+            mag -= 2 * (order.y - 1);   // mode order
+        }
+        if (order.z > 0)
+        {
+            mag -= 3;   // axial, tangential, oblique
+            mag -= 2 * (order.z - 1);   // mode order
+        }
+        return mag;
+    }
+
+    public void CalcDimensions()
+    {
+        volume = dimensions.x * dimensions.y * dimensions.z;
+        surfaceArea = 2*(dimensions.x * dimensions.y +
+            dimensions.x * dimensions.z +
+            dimensions.y * dimensions.z);
+        meanFreePath = 4 * volume / surfaceArea;
+    }
+
+    public void CalcModes()
     {
         // are we looking at the FIRST y order: do we need to increment y or x?
         bool firstY = false;
