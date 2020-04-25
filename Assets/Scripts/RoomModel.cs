@@ -12,18 +12,21 @@ public class RoomModel
 
     public float MaxModeFreq { get; set; } = 280f;
 
-    private Dictionary<Vector3Int, float> modes;
+    // this Dictionary makes it easy to use order to get freq for all text elements
+    private Dictionary<Vector3Int, float> modeDict;
+    // this list is used for the plotting
+    public List<Mode> modeList;
 
     public RoomModel()
     {
-        modes = new Dictionary<Vector3Int, float>();
+        modeDict = new Dictionary<Vector3Int, float>();
     }
 
     private float GetModeOfOrder(Vector3Int modeOrder)
     {
-        float freq = Mathf.Sqrt(  Mathf.Pow((float)(modeOrder.x / dimensions.x), 2) +
-                            Mathf.Pow((float)(modeOrder.y / dimensions.y), 2) +
-                            Mathf.Pow((float)(modeOrder.z / dimensions.z), 2));
+        float freq = Mathf.Sqrt(  Mathf.Pow(modeOrder.x / dimensions.x, 2) +
+                            Mathf.Pow(modeOrder.y / dimensions.y, 2) +
+                            Mathf.Pow(modeOrder.z / dimensions.z, 2));
         freq *= (GLOBALS.c / 2);
         return freq;
     }
@@ -32,7 +35,7 @@ public class RoomModel
     {
         // displays via (L,W,H)
         string answer = "";
-        if (modes.TryGetValue(order, out float freq))
+        if (modeDict.TryGetValue(order, out float freq))
         {
             answer = "(" + order.z + ", " + order.x + ", " + order.y + ") : " +
                         freq.ToString("F1") + "\n";
@@ -43,7 +46,7 @@ public class RoomModel
     public string DisplayAllModes()
     {
         string answer = "";
-        foreach (KeyValuePair<Vector3Int, float> mode in modes)
+        foreach (KeyValuePair<Vector3Int, float> mode in modeDict)
         {
             answer += modeDisp(mode);
         }
@@ -53,7 +56,7 @@ public class RoomModel
     public string DisplayAllModesUnderOrder(int maxOrder)
     {
         string answer = "";
-        foreach (KeyValuePair<Vector3Int, float> mode in modes)
+        foreach (KeyValuePair<Vector3Int, float> mode in modeDict)
         {
             if ((mode.Key.z + mode.Key.y + mode.Key.x) > maxOrder) continue;
             answer += modeDisp(mode);
@@ -67,28 +70,28 @@ public class RoomModel
         switch(dim)
         {
             case 1:
-                foreach (KeyValuePair<Vector3Int, float> mode in modes)
+                foreach (KeyValuePair<Vector3Int, float> mode in modeDict)
                 {
                     if (mode.Key.z < 1 || mode.Key.y > 0 || mode.Key.x > 0) continue;
                     answer += modeDisp(mode);
                 }
                 break;
             case 2:
-                foreach (KeyValuePair<Vector3Int, float> mode in modes)
+                foreach (KeyValuePair<Vector3Int, float> mode in modeDict)
                 {
                     if (mode.Key.x < 1 || mode.Key.z > 0 || mode.Key.y > 0) continue;
                     answer += modeDisp(mode);
                 }
                 break;
             case 3:
-                foreach (KeyValuePair<Vector3Int, float> mode in modes)
+                foreach (KeyValuePair<Vector3Int, float> mode in modeDict)
                 {
                     if (mode.Key.y < 1 || mode.Key.z > 0 || mode.Key.x > 0) continue;
                     answer += modeDisp(mode);
                 }
                 break;
             default:
-                foreach(KeyValuePair<Vector3Int, float> mode in modes)
+                foreach(KeyValuePair<Vector3Int, float> mode in modeDict)
                 {
                     answer += modeDisp(mode);
                 }
@@ -129,8 +132,6 @@ public class RoomModel
         return mag;
     }
 
-
-
     public void CalcDimensions()
     {
         volume = dimensions.x * dimensions.y * dimensions.z;
@@ -153,7 +154,7 @@ public class RoomModel
             fMode = GetModeOfOrder(order);
             if (fMode < MaxModeFreq)
             {
-                modes.Add(order, fMode);
+                modeDict.Add(order, fMode);
                 order.z++;
                 firstY = false;
                 firstX = false;
@@ -178,6 +179,21 @@ public class RoomModel
                     firstY = true;
                 }
             }
+        }
+        GenerateModeList();
+    }
+
+    private void GenerateModeList()
+    {
+        // put everything from the dictionary into the list
+        // calculate the mag along the way
+        foreach (KeyValuePair<Vector3Int, float> modeDictEntry in modeDict)
+        {
+            Mode temp = new Mode();
+            temp.freq = modeDictEntry.Value;
+            temp.order = modeDictEntry.Key;
+            temp.mag = GetModeMagnitude(temp.order);
+            modeList.Add(temp);
         }
     }
 }

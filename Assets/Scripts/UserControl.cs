@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class UserControl : MonoBehaviour
 {
-
     [SerializeField] public MeshingControl meshingControl;
     [SerializeField] private Text header;
     [SerializeField] private List<Text> columns;
+    [SerializeField] public GameObject plot;
 
     public RoomModel roomModel;
     public MLInputController _controller;
@@ -17,7 +17,6 @@ public class UserControl : MonoBehaviour
     private State currentState;
     private LineRenderer _controlBeam;
 
-    
     private void Start()
     {
         if (!MLInput.IsStarted)
@@ -27,6 +26,7 @@ public class UserControl : MonoBehaviour
         MLInput.OnControllerTouchpadGestureStart += OnTouchGesture;
         _controller = MLInput.GetController(MLInput.Hand.Left);
         _controlBeam = GetComponent<LineRenderer>();
+        plot.SetActive(false);
 
         SetState(new RoomScanState(this, header, columns));
         roomModel = new RoomModel();

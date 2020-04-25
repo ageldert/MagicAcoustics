@@ -17,19 +17,6 @@ public class RoomDimState : State
 
     }
 
-    public override void OnTouchGesture()
-    {
-        switch (controller.TouchpadGesture.Direction)
-        {
-            case MLInputControllerTouchpadGestureDirection.Left:
-
-                break;
-            case MLInputControllerTouchpadGestureDirection.Right:
-                userControl.SetState(new ModeListState(userControl, header, columns));
-                break;
-        }
-    }
-
     public override void OnStateEnter()
     {
         GLOBALS.meshVisible = false;
@@ -53,5 +40,18 @@ public class RoomDimState : State
     public override void OnStateExit()
     {
         GLOBALS.isMeshing = false;
+    }
+
+    public override void OnTouchGesture()
+    {
+        switch (controller.TouchpadGesture.Direction)
+        {
+            case MLInputControllerTouchpadGestureDirection.Left:
+
+                break;
+            case MLInputControllerTouchpadGestureDirection.Right:
+                userControl.SetState(new ModeListState(userControl, header, columns));
+                break;
+        }
     }
 }

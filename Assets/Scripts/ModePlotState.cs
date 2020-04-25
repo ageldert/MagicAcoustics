@@ -26,7 +26,7 @@ public class ModePlotState : State
                 userControl.SetState(new ModeListState(userControl, header, columns));
                 break;
             case MLInputControllerTouchpadGestureDirection.Right:
-                
+                // anything else?
                 break;
         }
     }
@@ -37,15 +37,21 @@ public class ModePlotState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
+        userControl.plot.SetActive(true);
 
         modePlot.Initialize();
 
-
+        // plot all modes
+        foreach(Mode m in userControl.roomModel.modeList)
+        {
+            modePlot.PlotMode(m);
+        }
     }
 
     public override void OnStateExit()
     {
         GLOBALS.isMeshing = false;
+        userControl.plot.SetActive(false);
     }
 
     public override void OnTriggerUp()

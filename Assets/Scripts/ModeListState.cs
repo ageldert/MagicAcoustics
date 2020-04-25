@@ -16,18 +16,6 @@ public class ModeListState : State
         // Update
         
     }
-    public override void OnTouchGesture()
-    {
-        switch (controller.TouchpadGesture.Direction)
-        {
-            case MLInputControllerTouchpadGestureDirection.Left:
-                userControl.SetState(new RoomDimState(userControl, header, columns));
-                break;
-            case MLInputControllerTouchpadGestureDirection.Right:
-                userControl.SetState(new ModePlotState(userControl, header, columns));
-                break;
-        }
-    }
 
     public override void OnStateEnter()
     {
@@ -54,4 +42,16 @@ public class ModeListState : State
         //userControl.SetState(new HeightState(userControl, header));
     }
 
+    public override void OnTouchGesture()
+    {
+        switch (controller.TouchpadGesture.Direction)
+        {
+            case MLInputControllerTouchpadGestureDirection.Left:
+                userControl.SetState(new RoomDimState(userControl, header, columns));
+                break;
+            case MLInputControllerTouchpadGestureDirection.Right:
+                userControl.SetState(new ModePlotState(userControl, header, columns));
+                break;
+        }
+    }
 }

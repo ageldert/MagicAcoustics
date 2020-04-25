@@ -15,7 +15,7 @@ public class LengthState : State
         userControl.meshingControl.UpdateMeshMaterial();
         float l = userControl.roomModel.dimensions.z = userControl.HandleBeam() * GLOBALS.m2ft;
         header.text = "Select a surface normal to the room LENGTH\n" +
-                        "LENGTH: " + l.ToString(GLOBALS.format) + "ft\n" +
+                        "LENGTH: " + l.ToString(GLOBALS.format) + " ft\n" +
                         "TRIGGER: select";
     }
 

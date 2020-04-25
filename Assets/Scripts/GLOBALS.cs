@@ -29,10 +29,7 @@ public struct Mode
     public float mag;
 };
 
-/*  Consider 3dB differences axial, tangential, oblique
- *  build all pole filter (inverse comb)
- *  to plot the frequency response
- *  
+/* 
  *  Create plot of lines of modes 
  *
  *  Horizontal swipe during mode view for:

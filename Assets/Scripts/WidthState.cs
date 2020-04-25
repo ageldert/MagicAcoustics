@@ -15,7 +15,7 @@ public class WidthState : State
         userControl.meshingControl.UpdateMeshMaterial(); userControl.meshingControl.UpdateMeshMaterial();
         float w = userControl.roomModel.dimensions.x = userControl.HandleBeam() * GLOBALS.m2ft;
         header.text = "Select a surface normal to the room WIDTH\n" +
-                        "WIDTH: " + w.ToString(GLOBALS.format) + "ft\n" +
+                        "WIDTH: " + w.ToString(GLOBALS.format) + " ft\n" +
                         "TRIGGER: select";
     }
 

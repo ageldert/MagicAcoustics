@@ -67,12 +67,6 @@ public class ModePlot : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // nada
-    }
-
     private float GetOffsetFromFreq(float freq)
     {
         // frequency ranges between 16 and 320
