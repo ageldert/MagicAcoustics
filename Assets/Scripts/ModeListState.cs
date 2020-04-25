@@ -14,16 +14,13 @@ public class ModeListState : State
     public override void Tick()
     {
         // Update
-        
     }
 
     public override void OnStateEnter()
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
         userControl.EnableBeam(false);
-        userControl.roomModel.CalcModes();
 
         header.text = "MODAL RESONANCES - (L,W,H)\n";
         for(int i = 0; i < 3; i++)
@@ -35,6 +32,10 @@ public class ModeListState : State
     public override void OnStateExit()
     {
         GLOBALS.isMeshing = false;
+        header.text = "";
+        columns[0].text = "";
+        columns[1].text = "";
+        columns[2].text = "";
     }
 
     public override void OnTriggerUp()

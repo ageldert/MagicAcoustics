@@ -29,12 +29,11 @@ public class WidthState : State
 
     public override void OnStateExit()
     {
-        
+        userControl.EnableBeam(false);
     }
 
     public override void OnTriggerUp()
     {
-        userControl.EnableBeam(false);
         userControl.SetState(new WidthViewState(userControl, header, columns));
     }
 

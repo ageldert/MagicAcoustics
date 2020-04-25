@@ -18,7 +18,7 @@ public class ModePlot : MonoBehaviour
     [SerializeField] private Image modePrefab;
 
     private Color textColor = Color.grey;
-    const float plotWidth = 500;
+    const float plotWidth = 650;
     const float plotHeight = 300;
     const float lineThick = 5;
 
@@ -82,7 +82,7 @@ public class ModePlot : MonoBehaviour
         Image newMode = Instantiate(modePrefab, modeParent.transform);
         newMode.transform.parent = modeParent.transform;
         newMode.rectTransform.anchoredPosition = new Vector2(GetOffsetFromFreq(mode.freq), lineThick);
-        newMode.rectTransform.sizeDelta = new Vector2(lineThick-1, mode.mag);
+        newMode.rectTransform.sizeDelta = new Vector2(lineThick-3, mode.mag * 10);
         newMode.color = GetColorFromOrder(mode.order);
     }
 

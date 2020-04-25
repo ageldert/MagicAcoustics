@@ -29,12 +29,12 @@ public class HeightState : State
 
 public override void OnStateExit()
     {
-        
+        userControl.EnableBeam(false);
+        userControl.roomModel.CalcModes();
     }
 
     public override void OnTriggerUp()
     {
-        userControl.EnableBeam(false);
         userControl.SetState(new HeightViewState(userControl, header, columns));
     }
 

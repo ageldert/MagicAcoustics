@@ -10,7 +10,7 @@ public class RoomModel
     public float surfaceArea;   // ft^2
     public float meanFreePath;  // 4V/Sa (ft)
 
-    public float MaxModeFreq { get; set; } = 280f;
+    public float MaxModeFreq { get; set; } = 310f;
 
     // this Dictionary makes it easy to use order to get freq for all text elements
     private Dictionary<Vector3Int, float> modeDict;
@@ -20,6 +20,7 @@ public class RoomModel
     public RoomModel()
     {
         modeDict = new Dictionary<Vector3Int, float>();
+        modeList = new List<Mode>();
     }
 
     private float GetModeOfOrder(Vector3Int modeOrder)
@@ -109,11 +110,11 @@ public class RoomModel
 
     public int GetModeMagnitude(Vector3Int order)
     {
-        // Returns a value from -20 to 0 (dB) representing mode strength
+        // Returns a value from 0 to 20 (dB) representing mode strength
         // Mode strength is NOT location-specific
         // Modeling with 0 dB axial, -3 dB tangential, -6 dB oblique
         // Modeling with -2 dB for increasing mode order
-        int mag = 3; // there always is a 1st order -3 dB to offset for
+        int mag = 20; // there always is a 1st order -3 dB to offset for
         if (order.x > 0)
         {
             mag -= 3;   // axial, tangential, oblique

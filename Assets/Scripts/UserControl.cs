@@ -10,6 +10,7 @@ public class UserControl : MonoBehaviour
     [SerializeField] private Text header;
     [SerializeField] private List<Text> columns;
     [SerializeField] public GameObject plot;
+    [SerializeField] public ModePlot modePlot;
 
     public RoomModel roomModel;
     public MLInputController _controller;

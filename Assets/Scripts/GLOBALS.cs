@@ -4,12 +4,12 @@ using UnityEngine;
 
 public static class GLOBALS
 {
-    // Unity default units are meters
+    // Unity default units are meters, but we want feet
     public static bool inFeet = true;
     // conversion value
     public const float m2ft = 3.28084f;
-    // speed of sound
-    public const float c = 343f;
+    // speed of sound IN FEET
+    public const float c = 1125;
     // room mesh visibility
     public static bool meshVisible = true;
     // actively using MLSpatialMapper
