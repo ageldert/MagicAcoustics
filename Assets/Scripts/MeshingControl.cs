@@ -33,15 +33,15 @@ public class MeshingControl : MonoBehaviour
         }
     }
 
-    public float CalculateNormal(RaycastHit hit)
+    // returns a RaycastHit of the normal hit, also handles the mesh
+    public RaycastHit CalculateNormal(RaycastHit hit)
     {
+        // change material of hit mesh
         if (hit.collider.gameObject.TryGetComponent<MeshRenderer>(out MeshRenderer target))
-        {
-            target.material = visMaterial;
-        }
+        {   target.material = visMaterial;}
 
         Vector3 hitNormal = hit.normal;
-        if (!GLOBALS.measureHeight)
+        if (GLOBALS.measuringDim != Dim.Height)
             hitNormal.y = 0f;
         else
         {
@@ -54,12 +54,18 @@ public class MeshingControl : MonoBehaviour
             _meshNormal.SetPosition(0, hit.point);
             _meshNormal.SetPosition(1, normalHit.point);
             _meshNormal.enabled = true;
-            return normalHit.distance;
+
+            // change material of normalHit mesh
+            if (normalHit.collider.gameObject.TryGetComponent<MeshRenderer>(out MeshRenderer normalTarget))
+            {   normalTarget.material = visMaterial;}
+            // and return
+            return normalHit;
         }
         else
         {
+            // default is to return the original hit (distance of 0)
             _meshNormal.enabled = false;
-            return 0.0f;
+            return hit;
         }
     }
 

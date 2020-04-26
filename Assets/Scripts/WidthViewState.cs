@@ -17,7 +17,7 @@ public class WidthViewState : State
     public override void OnStateEnter()
     {
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "WIDTH: " + userControl.roomModel.dimensions.x.ToString(GLOBALS.format) + " ft\n" +
                         "TRIGGER: continue\n" +

@@ -2,10 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct RoomPoints
+{
+    public Vector3 len1;
+    public Vector3 len2;
+    public Vector3 wid1;
+    public Vector3 wid2;
+    public Vector3 hgt1;
+    public Vector3 hgt2;
+};
+
 public class RoomModel
 {
-    // stores the length (z), width (x), and height (y) of the room in veet
+    // stores the length (z), width (x), and height (y) of the room in vec3
     public Vector3 dimensions;
+    public RoomPoints roomPoints;
+
     public float volume;    // ft^3
     public float surfaceArea;   // ft^2
     public float meanFreePath;  // 4V/Sa (ft)
@@ -21,6 +33,7 @@ public class RoomModel
     {
         modeDict = new Dictionary<Vector3Int, float>();
         modeList = new List<Mode>();
+        roomPoints = new RoomPoints();
     }
 
     private float GetModeOfOrder(Vector3Int modeOrder)
@@ -190,10 +203,22 @@ public class RoomModel
         // calculate the mag along the way
         foreach (KeyValuePair<Vector3Int, float> modeDictEntry in modeDict)
         {
-            Mode temp = new Mode();
-            temp.freq = modeDictEntry.Value;
-            temp.order = modeDictEntry.Key;
+            Mode temp = new Mode
+            {
+                freq = modeDictEntry.Value,
+                order = modeDictEntry.Key
+            };
             temp.mag = GetModeMagnitude(temp.order);
+
+            int axisCounter = 2;    // assume oblique at first
+            if (temp.order.x == 0)
+                axisCounter--;
+            if (temp.order.y == 0)
+                axisCounter--;
+            if (temp.order.z == 0)
+                axisCounter--;
+            temp.modeType = (ModeType)axisCounter;
+
             modeList.Add(temp);
         }
     }

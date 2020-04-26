@@ -17,7 +17,7 @@ public class LengthViewState : State
     public override void OnStateEnter()
     {
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "LENGTH: " + userControl.roomModel.dimensions.z.ToString(GLOBALS.format) + " ft\n" +
                         "TRIGGER: continue\n" +

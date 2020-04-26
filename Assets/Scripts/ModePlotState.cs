@@ -24,7 +24,7 @@ public class ModePlotState : State
                 userControl.SetState(new ModeListState(userControl, header, columns));
                 break;
             case MLInputControllerTouchpadGestureDirection.Right:
-                // anything else?
+                userControl.SetState(new WaveViewState(userControl, header, columns));
                 break;
         }
     }
@@ -33,7 +33,7 @@ public class ModePlotState : State
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         userControl.plot.SetActive(true);
 

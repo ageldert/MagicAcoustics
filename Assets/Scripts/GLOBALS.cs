@@ -17,7 +17,7 @@ public static class GLOBALS
     // precision of digits
     public const string format = "F2";
     // L, W, H?
-    public static bool measureHeight = false;
+    public static Dim measuringDim = Dim.none;
 }
 
 // Mode struct is used for plotting
@@ -27,7 +27,23 @@ public struct Mode
     public float freq;
     public Vector3Int order;
     public float mag;
+    public ModeType modeType;
 };
+
+public enum Dim
+{
+    none,
+    Length,
+    Width,
+    Height
+}
+
+public enum ModeType
+{
+    Axial,      // 1 axis ex.(1,0,0)
+    Tangential, // 2 axes ex.(1,1,0)
+    Oblique     // 3 axes ex.(1,1,1)
+}
 
 /* 
  *  Create plot of lines of modes 
@@ -37,5 +53,5 @@ public struct Mode
  *      - Tangential, Oblique Mode Display
  *      - Mode frequency lines
  *      - Room volume, surface area, MFP
- *      -
+ *      
  */

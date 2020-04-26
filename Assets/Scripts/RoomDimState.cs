@@ -21,7 +21,7 @@ public class RoomDimState : State
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         userControl.roomModel.CalcDimensions();
 

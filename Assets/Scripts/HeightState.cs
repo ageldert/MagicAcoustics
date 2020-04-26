@@ -23,11 +23,11 @@ public class HeightState : State
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = true;
+        GLOBALS.measuringDim = Dim.Height;
         userControl.EnableBeam(true);
     }
 
-public override void OnStateExit()
+    public override void OnStateExit()
     {
         userControl.EnableBeam(false);
         userControl.roomModel.CalcModes();

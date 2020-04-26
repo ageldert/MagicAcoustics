@@ -23,7 +23,7 @@ public class WidthState : State
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.Width;
         userControl.EnableBeam(true);
     }
 

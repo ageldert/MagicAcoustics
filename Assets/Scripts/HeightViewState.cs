@@ -17,7 +17,7 @@ public class HeightViewState : State
     public override void OnStateEnter()
     {
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "HEIGHT: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + " ft\n" +
                         "TRIGGER: continue\n" +

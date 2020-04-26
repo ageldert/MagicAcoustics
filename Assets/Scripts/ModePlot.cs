@@ -79,15 +79,25 @@ public class ModePlot : MonoBehaviour
 
     public void PlotMode(Mode mode)
     {
-        Image newMode = Instantiate(modePrefab, modeParent.transform);
-        newMode.transform.parent = modeParent.transform;
-        newMode.rectTransform.anchoredPosition = new Vector2(GetOffsetFromFreq(mode.freq), lineThick);
-        newMode.rectTransform.sizeDelta = new Vector2(lineThick-3, mode.mag * 10);
-        newMode.color = GetColorFromOrder(mode.order);
+        Image newModeImage = Instantiate(modePrefab, modeParent.transform);
+        newModeImage.transform.parent = modeParent.transform;
+        newModeImage.rectTransform.anchoredPosition = new Vector2(GetOffsetFromFreq(mode.freq), lineThick);
+        newModeImage.rectTransform.sizeDelta = new Vector2(lineThick-3, mode.mag * 10);
+        newModeImage.color = GetModeColor(mode.modeType);
     }
 
-    private Color GetColorFromOrder(Vector3Int order)
+    private Color GetModeColor(ModeType modeType)
     {
-        return Color.red;
+        switch(modeType)
+        {
+            case ModeType.Axial:
+                return Color.magenta;
+            case ModeType.Tangential:
+                return Color.cyan;
+            case ModeType.Oblique:
+                return Color.yellow;
+            default:
+                return Color.black;
+        }
     }
 }

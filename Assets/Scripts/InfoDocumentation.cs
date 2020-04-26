@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfoDocumentation : MonoBehaviour
+public static class InfoDocumentation
 {
-    public string ModeDesc()
+    public static string ModeDesc()
     {
-        string info = "Modes are acoustic standing waves that form based on the dimensions of an enclosed space.";
+        string info = "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "" +
+            "";
         return info;
     }
 

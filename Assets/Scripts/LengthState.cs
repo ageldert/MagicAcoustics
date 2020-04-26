@@ -23,7 +23,7 @@ public class LengthState : State
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
-        GLOBALS.measureHeight = false;
+        GLOBALS.measuringDim = Dim.Length;
         userControl.EnableBeam(true);
     }
 

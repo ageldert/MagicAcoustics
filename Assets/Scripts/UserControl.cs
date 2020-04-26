@@ -11,6 +11,7 @@ public class UserControl : MonoBehaviour
     [SerializeField] private List<Text> columns;
     [SerializeField] public GameObject plot;
     [SerializeField] public ModePlot modePlot;
+    [SerializeField] public StandingWave standingWave;
 
     public RoomModel roomModel;
     public MLInputController _controller;
@@ -59,7 +60,29 @@ public class UserControl : MonoBehaviour
         {
             _controlBeam.SetPosition(0, _controller.Position);
             _controlBeam.SetPosition(1, hit.point);
-            measured = meshingControl.CalculateNormal(hit);
+            RaycastHit normalHit = meshingControl.CalculateNormal(hit);
+            measured = normalHit.distance;
+            if(measured > Mathf.Epsilon)
+            {
+                // store the 2 positions into roomPoints
+                switch (GLOBALS.measuringDim)
+                {
+                    case Dim.Length:
+                        roomModel.roomPoints.len1 = hit.point;
+                        roomModel.roomPoints.len2 = normalHit.point;
+                        break;
+                    case Dim.Width:
+                        roomModel.roomPoints.wid1 = hit.point;
+                        roomModel.roomPoints.wid2 = normalHit.point;
+                        break;
+                    case Dim.Height:
+                        roomModel.roomPoints.hgt1 = hit.point;
+                        roomModel.roomPoints.hgt2 = normalHit.point;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         else
         {

@@ -19,6 +19,7 @@ public class RoomScanState : State
     {
         GLOBALS.meshVisible = true;
         GLOBALS.isMeshing = true;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text =   "BUMPER: pause/resume scanning\n" + 
                         "HOME: show/hide mesh\n" +

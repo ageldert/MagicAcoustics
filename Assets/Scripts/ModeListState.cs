@@ -20,6 +20,7 @@ public class ModeListState : State
     {
         GLOBALS.meshVisible = false;
         GLOBALS.isMeshing = false;
+        GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
 
         header.text = "MODAL RESONANCES - (L,W,H)\n";
@@ -36,11 +37,6 @@ public class ModeListState : State
         columns[0].text = "";
         columns[1].text = "";
         columns[2].text = "";
-    }
-
-    public override void OnTriggerUp()
-    {
-        //userControl.SetState(new HeightState(userControl, header));
     }
 
     public override void OnTouchGesture()
