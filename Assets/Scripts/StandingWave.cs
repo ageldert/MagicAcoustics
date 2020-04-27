@@ -18,10 +18,13 @@ public class StandingWave : MonoBehaviour
     public Vector3 pos1;
     public Vector3 pos2;
     public float freq;
+    public bool inVelocity = false; // default is pressure
     float[] waveVals;
     const float amplitude = 0.5f;
     const float alpha = 0.3f;
-    public bool inVelocity = false; // default is pressure
+    const float two_Pi = 2*Mathf.PI;
+
+    private float counter = 0f;
 
     private void Start()
     {
@@ -39,7 +42,7 @@ public class StandingWave : MonoBehaviour
     {
         if (active)
         {
-            //Animate();
+            Animate();
         }
         
     }
@@ -81,13 +84,19 @@ public class StandingWave : MonoBehaviour
         
         int maxOrder = currentOrder.x + currentOrder.y + currentOrder.z;
         CalculateCurveForOrder(maxOrder);
+
         Animate();
     }
 
     public void Animate()
     {
+        // handle timebase
+        counter += Time.deltaTime * two_Pi * freq / 100f;
+        if (counter >= two_Pi)
+            counter -= two_Pi;
         int maxOrder = currentOrder.x + currentOrder.y + currentOrder.z;
-        float newAmp = amplitude * Mathf.Pow(0.707f, maxOrder);
+        // animated amplitude
+        float newAmp = Mathf.Cos(counter) * amplitude * Mathf.Pow(0.707f, maxOrder);
 
         // change the positions of the line renderer
         for (int i = 0; i < linePoints; i++)
