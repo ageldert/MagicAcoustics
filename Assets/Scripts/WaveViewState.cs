@@ -42,7 +42,7 @@ public class WaveViewState : State
     public override void OnBumperUp()
     {
         // toggle pressure/velocity
-        userControl.standingWave.ToggleDimension();
+        userControl.standingWave.ToggleVelocityPressure();
         DisplayHeaderWithOrder();
     }
 
@@ -83,6 +83,7 @@ public class WaveViewState : State
     {
         header.text = "AXIAL STANDING WAVE\n";
         Vector3Int order = userControl.standingWave.currentOrder;
+        header.text += userControl.standingWave.freq.ToString("F1") + " Hz: ";
         header.text += "(" + order.z + ", " + order.x + ", " + order.y + ")";
     }
 }

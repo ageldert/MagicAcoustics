@@ -9,7 +9,7 @@ public class StandingWave : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private LineRenderer baseline;
     private LineRenderer _wave;
-    private const int linePoints = 128;
+    private const int linePoints = 64;
     private bool active;
 
     // animation params, set by another script
@@ -21,7 +21,7 @@ public class StandingWave : MonoBehaviour
     public bool inVelocity = false; // default is pressure
     float[] waveVals;
     const float amplitude = 0.5f;
-    const float alpha = 0.3f;
+    const float alpha = 0.4f;
     const float two_Pi = 2*Mathf.PI;
 
     private float counter = 0f;
@@ -30,7 +30,7 @@ public class StandingWave : MonoBehaviour
     {
         _wave = GetComponent<LineRenderer>();
         _wave.enabled = false;
-        _wave.positionCount = 128;
+        _wave.positionCount = linePoints;
         baseline.enabled = false;
         baseline.positionCount = 2;
         waveDim = Dim.Length;
@@ -84,8 +84,6 @@ public class StandingWave : MonoBehaviour
         
         int maxOrder = currentOrder.x + currentOrder.y + currentOrder.z;
         CalculateCurveForOrder(maxOrder);
-
-        Animate();
     }
 
     public void Animate()
@@ -111,6 +109,12 @@ public class StandingWave : MonoBehaviour
         }
 
         _wave.colorGradient = MakeColorGradientForOrder(maxOrder);
+    }
+
+    public void ToggleVelocityPressure()
+    {
+        inVelocity = !inVelocity;
+        InitializeAnimation();
     }
 
     public void ToggleDimension()
@@ -212,24 +216,50 @@ public class StandingWave : MonoBehaviour
     private Gradient MakeColorGradientForOrder(int n)
     {
         Gradient g = new Gradient();
-        GradientColorKey[] g_colors = new GradientColorKey[n+1];
-        GradientAlphaKey[] g_alphas = new GradientAlphaKey[n+1];
-        float alpha_new = alpha * Mathf.Abs(waveVals[0]);
-        for (int i = 0; i <= n; i++)
+
+        if(inVelocity)
         {
-            Color color;
-            if (i % 2 == 0)
+            GradientColorKey[] g_colors = new GradientColorKey[n];
+            GradientAlphaKey[] g_alphas = new GradientAlphaKey[n];
+            for (int i = 0; i < n; i++)
             {
-                color = new Color(1, 0, 0, alpha_new);
+                int pct = ((linePoints - 1) * i / n) + (linePoints - 1) / (n*2);
+                float val_at_i = Mathf.Cos(counter) * waveVals[pct];
+                float red = 0f;
+                float blue = 0f;
+                if (val_at_i > Mathf.Epsilon)
+                { red = val_at_i; }
+                else
+                { blue = -val_at_i; }
+
+                Color color = new Color(red, 0, blue, alpha);
+                g_colors[i] = new GradientColorKey(color, i / (float)n);
+                g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
             }
-            else
-            {
-                color = new Color(0, 0, 1, alpha_new);
-            }
-            g_colors[i] = new GradientColorKey(color, i / (float)n);
-            g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
+            g.SetKeys(g_colors, g_alphas);
+            return g;
         }
-        g.SetKeys(g_colors, g_alphas);
-        return g;
+        else
+        {
+            GradientColorKey[] g_colors = new GradientColorKey[n + 1];
+            GradientAlphaKey[] g_alphas = new GradientAlphaKey[n + 1];
+            for (int i = 0; i <= n; i++)
+            {
+                int pct = (linePoints - 1) * i / n;
+                float val_at_i = Mathf.Cos(counter) * waveVals[pct];
+                float red = 0f;
+                float blue = 0f;
+                if (val_at_i > Mathf.Epsilon)
+                { red = val_at_i; }
+                else
+                { blue = -val_at_i; }
+
+                Color color = new Color(red, 0, blue, alpha);
+                g_colors[i] = new GradientColorKey(color, i / (float)n);
+                g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
+            }
+            g.SetKeys(g_colors, g_alphas);
+            return g;
+        }
     }
 }
