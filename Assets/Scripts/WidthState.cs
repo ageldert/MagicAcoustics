@@ -6,7 +6,7 @@ public class WidthState : State
 {
     public WidthState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.Width;
     }
 
     public override void Tick()

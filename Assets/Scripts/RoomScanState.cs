@@ -6,7 +6,7 @@ public class RoomScanState : State
 {
     public RoomScanState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.RoomScan;
     }
 
     public override void Tick()
@@ -21,9 +21,8 @@ public class RoomScanState : State
         GLOBALS.isMeshing = true;
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
-        header.text =   "BUMPER: pause/resume scanning\n" + 
-                        "HOME: show/hide mesh\n" +
-                        "TRIGGER: finish scan";
+        header.text = "SCANNING ROOM...\n" +
+                      "Move around your room until most surfaces are covered!";
     }
 
     public override void OnStateExit()

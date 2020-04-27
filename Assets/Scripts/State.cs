@@ -6,6 +6,7 @@ using UnityEngine.XR.MagicLeap;
 
 public abstract class State
 {
+    public StateEnum myState;
     protected float timer;
     protected UserControl userControl;
     protected Text header;

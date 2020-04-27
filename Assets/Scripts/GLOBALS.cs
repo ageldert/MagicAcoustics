@@ -45,6 +45,21 @@ public enum ModeType
     Oblique     // 3 axes ex.(1,1,1)
 }
 
+public enum StateEnum
+{
+    RoomScan,
+    Length,
+    LengthView,
+    Width,
+    WidthView,
+    Height,
+    HeightView,
+    ModeList,
+    RoomDim,
+    ModePlot,
+    WaveView
+}
+
 /* 
  *  Create plot of lines of modes 
  *

@@ -9,7 +9,7 @@ public class WaveViewState : State
     
     public WaveViewState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.WaveView;
     }
 
     public override void Tick()

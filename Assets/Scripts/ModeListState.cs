@@ -8,7 +8,7 @@ public class ModeListState : State
 {
     public ModeListState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.ModeList;
     }
 
     public override void Tick()

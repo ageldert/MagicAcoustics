@@ -6,7 +6,7 @@ public class HeightViewState : State
 {
     public HeightViewState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.HeightView;
     }
 
     public override void Tick()

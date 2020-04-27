@@ -6,7 +6,7 @@ public class LengthState : State
 {
     public LengthState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.Length;
     }
 
     public override void Tick()

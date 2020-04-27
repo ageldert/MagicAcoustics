@@ -18,6 +18,7 @@ public class UserControl : MonoBehaviour
 
     private State currentState;
     private LineRenderer _controlBeam;
+    private ControlHelp _controlHelp;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class UserControl : MonoBehaviour
         MLInput.OnControllerTouchpadGestureStart += OnTouchGesture;
         _controller = MLInput.GetController(MLInput.Hand.Left);
         _controlBeam = GetComponent<LineRenderer>();
+        _controlHelp = GetComponent<ControlHelp>();
         plot.SetActive(false);
 
         SetState(new RoomScanState(this, header, columns));
@@ -45,6 +47,7 @@ public class UserControl : MonoBehaviour
             currentState.OnStateExit();
 
         currentState = state;
+        _controlHelp.DisplayInstructions(currentState);
 
         if (currentState != null)
             currentState.OnStateEnter();

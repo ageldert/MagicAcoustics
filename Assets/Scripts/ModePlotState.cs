@@ -9,6 +9,7 @@ public class ModePlotState : State
 
     public ModePlotState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
+        myState = StateEnum.ModePlot;
     }
 
     public override void Tick()

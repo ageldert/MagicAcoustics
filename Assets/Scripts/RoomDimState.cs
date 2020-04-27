@@ -8,7 +8,7 @@ public class RoomDimState : State
 {
     public RoomDimState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        // default constructor
+        myState = StateEnum.RoomDim;
     }
 
     public override void Tick()
