@@ -9,7 +9,7 @@ public class StandingWave : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private LineRenderer baseline;
     private LineRenderer _wave;
-    private const int linePoints = 64;
+    private const int linePoints = 128;
     private bool active;
 
     // animation params, set by another script
@@ -216,14 +216,22 @@ public class StandingWave : MonoBehaviour
     private Gradient MakeColorGradientForOrder(int n)
     {
         Gradient g = new Gradient();
-
         if(inVelocity)
         {
+            n *= 2;
             GradientColorKey[] g_colors = new GradientColorKey[n];
             GradientAlphaKey[] g_alphas = new GradientAlphaKey[n];
             for (int i = 0; i < n; i++)
             {
-                int pct = ((linePoints - 1) * i / n) + (linePoints - 1) / (n*2);
+                // multiplied n by two, then only use odd indices
+                if (i % 2 == 0)
+                {
+                    Color mixed = new Color(0.4f, 0, 0.4f, alpha);
+                    g_colors[i] = new GradientColorKey(mixed, i / (float)n);
+                    g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
+                    continue;
+                }
+                int pct = ((linePoints - 1) * i) / n;
                 float val_at_i = Mathf.Cos(counter) * waveVals[pct];
                 float red = 0f;
                 float blue = 0f;
@@ -237,7 +245,6 @@ public class StandingWave : MonoBehaviour
                 g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
             }
             g.SetKeys(g_colors, g_alphas);
-            return g;
         }
         else
         {
@@ -259,7 +266,8 @@ public class StandingWave : MonoBehaviour
                 g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
             }
             g.SetKeys(g_colors, g_alphas);
-            return g;
         }
+        return g;
+
     }
 }
