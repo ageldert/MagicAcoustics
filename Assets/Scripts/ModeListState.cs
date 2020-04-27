@@ -13,7 +13,8 @@ public class ModeListState : State
 
     public override void Tick()
     {
-        // Update
+        if (timer >= Mathf.Epsilon)
+            timer -= Time.deltaTime;
     }
 
     public override void OnStateEnter()
@@ -24,6 +25,7 @@ public class ModeListState : State
         userControl.EnableBeam(false);
         userControl.meshingControl.UpdateMeshMaterial();
         userControl.meshingControl.HideNormal();
+
         header.text = "MODAL RESONANCES - (L,W,H)\n";
         for(int i = 0; i < 3; i++)
         {
@@ -42,6 +44,8 @@ public class ModeListState : State
 
     public override void OnTouchGesture()
     {
+        if (timer >= Mathf.Epsilon)
+            return;
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Left:

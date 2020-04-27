@@ -13,7 +13,8 @@ public class RoomDimState : State
 
     public override void Tick()
     {
-        // Update
+        if (timer >= Mathf.Epsilon)
+            timer -= Time.deltaTime;
 
     }
 
@@ -23,7 +24,6 @@ public class RoomDimState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
-        userControl.roomModel.CalcDimensions();
 
         header.text = "ROOM DIMENSIONS\n";
 
@@ -34,7 +34,6 @@ public class RoomDimState : State
         columns[1].text += "Surface Area: " + userControl.roomModel.surfaceArea.ToString("F1") + " ft²\n";
         columns[1].text += "Volume: " + userControl.roomModel.volume.ToString("F0") + " ft³\n";
         columns[1].text += "Mean Free Path: " + userControl.roomModel.meanFreePath.ToString(GLOBALS.format) + " ft\n";
-        // anything else?
     }
 
     public override void OnStateExit()
@@ -44,6 +43,8 @@ public class RoomDimState : State
 
     public override void OnTouchGesture()
     {
+        if (timer >= Mathf.Epsilon)
+            return;
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Left:

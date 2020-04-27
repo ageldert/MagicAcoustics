@@ -80,9 +80,8 @@ public class ModePlot : MonoBehaviour
     public void PlotMode(Mode mode)
     {
         //Image newModeImage = Instantiate(modePrefab, modeParent.transform);
-        Image newModeImage = Instantiate(modePrefab, modeParent.transform);
-        //newModeImage.transform.SetParent(modeParent.transform);
-        newModeImage.transform.parent = modeParent.transform;
+        Image newModeImage = Instantiate(modePrefab);
+        newModeImage.transform.SetParent(modeParent.transform, false);
         newModeImage.rectTransform.anchoredPosition = new Vector2(GetOffsetFromFreq(mode.freq), lineThick);
         newModeImage.rectTransform.sizeDelta = new Vector2(lineThick-2.5f, mode.mag * 10);
         newModeImage.color = GetModeColor(mode.modeType);

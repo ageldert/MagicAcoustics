@@ -13,11 +13,14 @@ public class ModePlotState : State
 
     public override void Tick()
     {
-        // Update
+        if (timer >= Mathf.Epsilon)
+            timer -= Time.deltaTime;
     }
 
     public override void OnTouchGesture()
     {
+        if (timer >= Mathf.Epsilon)
+            return;
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Left:
@@ -35,8 +38,8 @@ public class ModePlotState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
-        userControl.plot.SetActive(true);
 
+        userControl.plot.SetActive(true);
         userControl.modePlot.Initialize();
 
         // plot all modes

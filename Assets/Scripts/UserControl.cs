@@ -112,7 +112,6 @@ public class UserControl : MonoBehaviour
     private void OnTouchGesture(byte controllerId, MLInputControllerTouchpadGesture touchpadGesture)
     {
         currentState.OnTouchGesture();
-
     }
 
     private void OnDisable()

@@ -19,8 +19,9 @@ public class StandingWave : MonoBehaviour
     public Vector3 pos2;
     public float freq;
     float[] waveVals;
-    const float amplitude = 0.3f;
+    const float amplitude = 0.5f;
     const float alpha = 0.3f;
+    public bool inVelocity = false; // default is pressure
 
     private void Start()
     {
@@ -77,29 +78,30 @@ public class StandingWave : MonoBehaviour
         }
         baseline.SetPosition(0, pos1);
         baseline.SetPosition(1, pos2);
-        // todo prepare a full wave setup
+        
         int maxOrder = currentOrder.x + currentOrder.y + currentOrder.z;
-        CalculateCosineForOrder(maxOrder);
+        CalculateCurveForOrder(maxOrder);
         Animate();
     }
 
     public void Animate()
     {
+        int maxOrder = currentOrder.x + currentOrder.y + currentOrder.z;
+        float newAmp = amplitude * Mathf.Pow(0.707f, maxOrder);
+
         // change the positions of the line renderer
         for (int i = 0; i < linePoints; i++)
         {
             float pct = i / (float)linePoints;
             Vector3 pos = pos1 + ((pos2-pos1) * pct);
             if (currentOrder.y > 0)
-                pos += _camera.transform.right * amplitude * waveVals[i];
+                pos += _camera.transform.right * newAmp * waveVals[i];
             else
-                pos += _camera.transform.up * amplitude * waveVals[i];
+                pos += _camera.transform.up * newAmp * waveVals[i];
             _wave.SetPosition(i, pos);
         }
 
-        //_wave.startColor = new Color((1 + waveVals[0])/2, 0.1f, (1 - waveVals[0]) / 2, alpha);
-        //_wave.endColor = new Color((1 + waveVals[linePoints - 1]) / 2, 0.1f, (1 - waveVals[linePoints - 1]) / 2, alpha);
-        _wave.colorGradient = MakeColorGradientForOrder(currentOrder.x + currentOrder.y + currentOrder.z);
+        _wave.colorGradient = MakeColorGradientForOrder(maxOrder);
     }
 
     public void ToggleDimension()
@@ -178,12 +180,23 @@ public class StandingWave : MonoBehaviour
         else return false;
     }
 
-    private void CalculateCosineForOrder(int n)
+    private void CalculateCurveForOrder(int n)
     {
-        for (int i = 0; i < linePoints; i++)
+        if(inVelocity)
         {
-            float phase = Mathf.PI * n * i / linePoints;
-            waveVals[i] = Mathf.Cos(phase);
+            for (int i = 0; i < linePoints; i++)
+            {
+                float phase = Mathf.PI * n * i / linePoints;
+                waveVals[i] = Mathf.Sin(phase);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < linePoints; i++)
+            {
+                float phase = Mathf.PI * n * i / linePoints;
+                waveVals[i] = Mathf.Cos(phase);
+            }
         }
     }
 
@@ -192,26 +205,22 @@ public class StandingWave : MonoBehaviour
         Gradient g = new Gradient();
         GradientColorKey[] g_colors = new GradientColorKey[n+1];
         GradientAlphaKey[] g_alphas = new GradientAlphaKey[n+1];
-
+        float alpha_new = alpha * Mathf.Abs(waveVals[0]);
         for (int i = 0; i <= n; i++)
         {
             Color color;
             if (i % 2 == 0)
             {
-                //color = new Color((1 + waveVals[0]) / 2, 0.1f, (1 - waveVals[0]) / 2, alpha);
-                color = Color.red;
+                color = new Color(1, 0, 0, alpha_new);
             }
             else
             {
-                //color = new Color((1 + waveVals[linePoints - 1]) / 2, 0.1f, (1 - waveVals[linePoints - 1]) / 2, alpha);
-                color = Color.blue;
+                color = new Color(0, 0, 1, alpha_new);
             }
             g_colors[i] = new GradientColorKey(color, i / (float)n);
             g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
         }
         g.SetKeys(g_colors, g_alphas);
         return g;
-
     }
-
 }

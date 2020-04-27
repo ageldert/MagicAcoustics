@@ -14,7 +14,8 @@ public class WaveViewState : State
 
     public override void Tick()
     {
-        // Update
+        if(timer >= Mathf.Epsilon)
+            timer -= Time.deltaTime;
     }
 
     public override void OnStateEnter()
@@ -23,6 +24,7 @@ public class WaveViewState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
+
         userControl.standingWave.SetActive(true);
         DisplayHeaderWithOrder();
         userControl.standingWave.InitializeAnimation();
@@ -39,6 +41,13 @@ public class WaveViewState : State
 
     public override void OnBumperUp()
     {
+        // toggle pressure/velocity
+        userControl.standingWave.ToggleDimension();
+        DisplayHeaderWithOrder();
+    }
+
+    public override void OnTriggerUp()
+    {
         // change view axis, update StandingWaveParams
         userControl.standingWave.ToggleDimension();
         DisplayHeaderWithOrder();
@@ -46,6 +55,9 @@ public class WaveViewState : State
 
     public override void OnTouchGesture()
     {
+        if (timer >= Mathf.Epsilon)
+            return;
+        else timer = 0.5f;
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Left:

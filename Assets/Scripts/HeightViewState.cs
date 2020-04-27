@@ -33,6 +33,7 @@ public class HeightViewState : State
     {
         // advance to analyses
         userControl.roomModel.CalcModes();
+        userControl.roomModel.CalcDimensions();
         userControl.SetState(new ModeListState(userControl, header, columns));
     }
 
