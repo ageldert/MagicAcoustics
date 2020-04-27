@@ -20,8 +20,7 @@ public class WidthViewState : State
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "WIDTH: " + userControl.roomModel.dimensions.x.ToString(GLOBALS.format) + " ft\n" +
-                        "TRIGGER: continue\n" +
-                        "BUMPER: remeasure";
+                        "Continue?";
     }
 
     public override void OnStateExit()

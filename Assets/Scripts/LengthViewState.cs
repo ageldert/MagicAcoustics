@@ -20,8 +20,7 @@ public class LengthViewState : State
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "LENGTH: " + userControl.roomModel.dimensions.z.ToString(GLOBALS.format) + " ft\n" +
-                        "TRIGGER: continue\n" +
-                        "BUMPER: remeasure";
+                        "Continue?";
     }
 
     public override void OnStateExit()

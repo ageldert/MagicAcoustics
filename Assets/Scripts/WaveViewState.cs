@@ -82,8 +82,13 @@ public class WaveViewState : State
     private void DisplayHeaderWithOrder()
     {
         header.text = "AXIAL STANDING WAVE\n";
+        if(userControl.standingWave.inVelocity)
+            header.text += "Air Velocity\n";
+        else
+            header.text += "Air Pressure\n";
         Vector3Int order = userControl.standingWave.currentOrder;
-        header.text += userControl.standingWave.freq.ToString("F1") + " Hz: ";
-        header.text += "(" + order.z + ", " + order.x + ", " + order.y + ")";
+        header.text += "(" + order.z + ", " + order.x + ", " + order.y + "): ";
+        header.text += userControl.standingWave.freq.ToString("F1") + " Hz (x0.01 rate)";
+
     }
 }

@@ -22,7 +22,7 @@ public class RoomScanState : State
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "SCANNING ROOM...\n" +
-                      "Move around your room until most surfaces are covered!";
+                      "Move around the room until most surfaces are covered!";
     }
 
     public override void OnStateExit()

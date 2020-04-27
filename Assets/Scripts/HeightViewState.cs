@@ -20,8 +20,7 @@ public class HeightViewState : State
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
         header.text = "HEIGHT: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + " ft\n" +
-                        "TRIGGER: continue\n" +
-                        "BUMPER: remeasure";
+                        "Continue?";
     }
 
     public override void OnStateExit()

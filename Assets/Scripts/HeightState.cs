@@ -15,8 +15,7 @@ public class HeightState : State
         userControl.meshingControl.UpdateMeshMaterial();
         float h = userControl.roomModel.dimensions.y = userControl.HandleBeam() * GLOBALS.m2ft;
         header.text = "Lastly, select a floor or ceiling normal to the room HEIGHT\n" +
-                        "HEIGHT: " + h.ToString(GLOBALS.format) + " ft\n" +
-                        "TRIGGER: select";
+                        "Measured: " + h.ToString(GLOBALS.format) + " ft\n";
     }
 
     public override void OnStateEnter()

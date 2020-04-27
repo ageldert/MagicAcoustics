@@ -14,10 +14,14 @@ public class ModePlot : MonoBehaviour
     [SerializeField] private Image magAxis;
     [SerializeField] private Text magName;
 
+    [SerializeField] private Text axialLegend;
+    [SerializeField] private Text tangentialLegend;
+    [SerializeField] private Text obliqueLegend;
+
     [SerializeField] private GameObject modeParent;
     [SerializeField] private Image modePrefab;
 
-    private Color textColor = Color.grey;
+    private Color textColor = Color.white;
     const float plotWidth = 650;
     const float plotHeight = 300;
     const float lineThick = 5;
@@ -25,17 +29,20 @@ public class ModePlot : MonoBehaviour
     public void Initialize()
     {
         plotContent.sizeDelta = new Vector2(plotWidth, plotHeight);
-
         PlaceAxes();
+        PlaceTicks();
+        PlaceLegend();
     }
 
     private void PlaceAxes()
     {
         freqAxis.rectTransform.anchoredPosition = new Vector2(0, 0);
         freqAxis.rectTransform.sizeDelta = new Vector2(plotWidth, lineThick);
+        freqAxis.color = textColor;
 
         magAxis.rectTransform.anchoredPosition = new Vector2(0, 0);
         magAxis.rectTransform.sizeDelta = new Vector2(lineThick, plotHeight);
+        magAxis.color = textColor;
 
         freqName.text = "Frequency (Hz)";
         freqName.color = textColor;
@@ -44,8 +51,6 @@ public class ModePlot : MonoBehaviour
         magName.text = "Magnitude";
         magName.color = textColor;
         magName.rectTransform.anchoredPosition = new Vector2(-20, plotHeight / 3);
-
-        PlaceTicks();
     }
 
     private void PlaceTicks()
@@ -55,6 +60,7 @@ public class ModePlot : MonoBehaviour
         {
             tick.rectTransform.anchoredPosition = new Vector2(GetOffsetFromFreq(f), -lineThick);
             tick.rectTransform.sizeDelta = new Vector2(lineThick, lineThick*2);
+            tick.color = textColor;
             f *= 2;
         }
 
@@ -62,9 +68,17 @@ public class ModePlot : MonoBehaviour
         foreach(Text text in freqLabels)
         {
             text.text = f.ToString("F0");
+            text.color = textColor;
             text.rectTransform.anchoredPosition = new Vector2(GetOffsetFromFreq(f)-10, -30);
             f *= 2;
         }
+    }
+
+    private void PlaceLegend()
+    {
+        axialLegend.color = GetModeColor(ModeType.Axial);
+        tangentialLegend.color = GetModeColor(ModeType.Tangential);
+        obliqueLegend.color = GetModeColor(ModeType.Oblique);
     }
 
     private float GetOffsetFromFreq(float freq)
