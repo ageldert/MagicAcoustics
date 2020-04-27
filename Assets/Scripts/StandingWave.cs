@@ -97,9 +97,9 @@ public class StandingWave : MonoBehaviour
             _wave.SetPosition(i, pos);
         }
 
-        _wave.startColor = new Color((1 + waveVals[0])/2, 0.1f, (1 - waveVals[0]) / 2, alpha);
-        _wave.endColor = new Color((1 + waveVals[linePoints - 1]) / 2, 0.1f, (1 - waveVals[linePoints - 1]) / 2, alpha);
-        _wave.colorGradient = new Gradient()
+        //_wave.startColor = new Color((1 + waveVals[0])/2, 0.1f, (1 - waveVals[0]) / 2, alpha);
+        //_wave.endColor = new Color((1 + waveVals[linePoints - 1]) / 2, 0.1f, (1 - waveVals[linePoints - 1]) / 2, alpha);
+        _wave.colorGradient = MakeColorGradientForOrder(currentOrder.x + currentOrder.y + currentOrder.z);
     }
 
     public void ToggleDimension()
@@ -190,11 +190,26 @@ public class StandingWave : MonoBehaviour
     private Gradient MakeColorGradientForOrder(int n)
     {
         Gradient g = new Gradient();
-        n++;
+        GradientColorKey[] g_colors = new GradientColorKey[n+1];
+        GradientAlphaKey[] g_alphas = new GradientAlphaKey[n+1];
 
-
-
-
+        for (int i = 0; i <= n; i++)
+        {
+            Color color;
+            if (i % 2 == 0)
+            {
+                //color = new Color((1 + waveVals[0]) / 2, 0.1f, (1 - waveVals[0]) / 2, alpha);
+                color = Color.red;
+            }
+            else
+            {
+                //color = new Color((1 + waveVals[linePoints - 1]) / 2, 0.1f, (1 - waveVals[linePoints - 1]) / 2, alpha);
+                color = Color.blue;
+            }
+            g_colors[i] = new GradientColorKey(color, i / (float)n);
+            g_alphas[i] = new GradientAlphaKey(0.3f, i / (float)n);
+        }
+        g.SetKeys(g_colors, g_alphas);
         return g;
 
     }
