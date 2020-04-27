@@ -32,10 +32,10 @@ public struct Mode
 
 public enum Dim
 {
-    none,
     Length,
     Width,
-    Height
+    Height,
+    none
 }
 
 public enum ModeType

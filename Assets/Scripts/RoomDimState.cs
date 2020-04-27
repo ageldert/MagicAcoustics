@@ -31,8 +31,8 @@ public class RoomDimState : State
             "Width: " + userControl.roomModel.dimensions.x.ToString(GLOBALS.format) + " ft\n" +
             "Height: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + " ft\n";
 
-        columns[1].text += "Surface Area: " + userControl.roomModel.surfaceArea.ToString(GLOBALS.format) + " ft²\n";
-        columns[1].text += "Volume: " + userControl.roomModel.volume.ToString(GLOBALS.format) + " ft³\n";
+        columns[1].text += "Surface Area: " + userControl.roomModel.surfaceArea.ToString("F1") + " ft²\n";
+        columns[1].text += "Volume: " + userControl.roomModel.volume.ToString("F0") + " ft³\n";
         columns[1].text += "Mean Free Path: " + userControl.roomModel.meanFreePath.ToString(GLOBALS.format) + " ft\n";
         // anything else?
     }

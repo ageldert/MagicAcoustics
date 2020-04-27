@@ -26,12 +26,13 @@ public class HeightViewState : State
 
     public override void OnStateExit()
     {
-
+        
     }
 
     public override void OnTriggerUp()
     {
         // advance to analyses
+        userControl.roomModel.CalcModes();
         userControl.SetState(new ModeListState(userControl, header, columns));
     }
 

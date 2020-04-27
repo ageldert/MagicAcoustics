@@ -22,7 +22,8 @@ public class ModeListState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
-
+        userControl.meshingControl.UpdateMeshMaterial();
+        userControl.meshingControl.HideNormal();
         header.text = "MODAL RESONANCES - (L,W,H)\n";
         for(int i = 0; i < 3; i++)
         {

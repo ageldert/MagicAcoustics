@@ -25,7 +25,7 @@ public class RoomModel
     public float MaxModeFreq { get; set; } = 310f;
 
     // this Dictionary makes it easy to use order to get freq for all text elements
-    private Dictionary<Vector3Int, float> modeDict;
+    public Dictionary<Vector3Int, float> modeDict;
     // this list is used for the plotting
     public List<Mode> modeList;
 

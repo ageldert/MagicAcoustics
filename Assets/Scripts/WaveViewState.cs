@@ -7,7 +7,6 @@ using UnityEngine.XR.MagicLeap;
 public class WaveViewState : State
 {
     
-
     public WaveViewState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
         // default constructor
@@ -24,12 +23,14 @@ public class WaveViewState : State
         GLOBALS.isMeshing = false;
         GLOBALS.measuringDim = Dim.none;
         userControl.EnableBeam(false);
-
-        header.text = "VIEWING STANDING WAVE\n";
+        userControl.standingWave.SetActive(true);
+        DisplayHeaderWithOrder();
+        userControl.standingWave.InitializeAnimation();
     }
 
     public override void OnStateExit()
     {
+        userControl.standingWave.SetActive(false);
         header.text = "";
         columns[0].text = "";
         columns[1].text = "";
@@ -39,11 +40,8 @@ public class WaveViewState : State
     public override void OnBumperUp()
     {
         // change view axis, update StandingWaveParams
-        userControl.standingWave.waveDim--;
-        if (userControl.standingWave.waveDim == Dim.none)
-            userControl.standingWave.waveDim = Dim.Height;
-        userControl.standingWave.currentOrder = 1;
-        UpdateWaveFreq();
+        userControl.standingWave.ToggleDimension();
+        DisplayHeaderWithOrder();
     }
 
     public override void OnTouchGesture()
@@ -58,17 +56,21 @@ public class WaveViewState : State
                 break;
             case MLInputControllerTouchpadGestureDirection.Up:
                 // higher order
+                userControl.standingWave.IncrementOrder();
+                DisplayHeaderWithOrder();
                 break;
             case MLInputControllerTouchpadGestureDirection.Down:
                 // lower order
+                userControl.standingWave.DecrementOrder();
+                DisplayHeaderWithOrder();
                 break;
         }
     }
 
-    private void UpdateWaveFreq()
+    private void DisplayHeaderWithOrder()
     {
-
-
-
+        header.text = "AXIAL STANDING WAVE\n";
+        Vector3Int order = userControl.standingWave.currentOrder;
+        header.text += "(" + order.z + ", " + order.x + ", " + order.y + ")";
     }
 }
