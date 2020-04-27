@@ -42,4 +42,9 @@ public class HeightViewState : State
         userControl.SetState(new HeightState(userControl, header, columns));
     }
 
+    public override void OnHomeUp()
+    {
+        userControl.SetState(new RoomScanState(userControl, header, columns));
+    }
+
 }

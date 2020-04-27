@@ -42,4 +42,8 @@ public class WidthState : State
 
     }
 
+    public override void OnHomeUp()
+    {
+        userControl.SetState(new RoomScanState(userControl, header, columns));
+    }
 }

@@ -39,4 +39,9 @@ public class LengthViewState : State
         userControl.SetState(new LengthState(userControl, header, columns));
     }
 
+    public override void OnHomeUp()
+    {
+        userControl.SetState(new RoomScanState(userControl, header, columns));
+    }
+
 }
