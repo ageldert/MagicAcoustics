@@ -65,5 +65,6 @@ public enum ModeInfo
 {
     Info,
     Effects,
-    Treatment
+    Treatment,
+    Credits
 }

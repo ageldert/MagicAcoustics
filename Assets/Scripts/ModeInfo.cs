@@ -9,9 +9,9 @@ public class ModeInfoState : State
     public ModeInfo currentInfo;
     private string[] headerTexts;
     private string[] bodyTexts;
-    private string infoHeader = "What Are Room Modes?";
+    private readonly string infoHeader = "What Are Room Modes?";
 
-    private string infoText = "\tRoom modes are the most important acoustical characteristic of any enclosed room. " +
+    private readonly string infoText = "\tRoom modes are the most important acoustical characteristic of any enclosed room. " +
             "Each mode is a resonant standing wave formed from reflections between the surfaces in the room. " +
             "These standing waves can cause massive changes in the room response at that frequency. " +
             "Acoustical energy will especially accumulate near the corners and walls of the room. " +
@@ -21,9 +21,9 @@ public class ModeInfoState : State
             "\nTangential: mode along two dimensions ex. (0, 2, 1)" +
             "\nOblique: mode along three dimensions ex. (1, 2, 1)";
 
-    private string effectsHeader = "What Are the Effects of Modes?";
+    private readonly string effectsHeader = "What Are the Effects of Modes?";
 
-    private string effectsText = "\tAt a given location, frequencies whose modes have a pressure antinode will be amplified, and 'ring' " +
+    private readonly string effectsText = "\tAt a given location, frequencies whose modes have a pressure antinode will be amplified, and 'ring' " +
         "with a longer reverberation time. This 'ringing' modal resonance may be imperceptible if other modes are densely spaced near the amplified frequency, " +
         "but a room with widely spaced and prominent modes will create extreme frequency response variations at different locations in the room. " +
         "\n\nIf parallel surfaces are also very reflective, flutter echo may occur. This is an undesirable phenomenon where reflections " +
@@ -31,9 +31,9 @@ public class ModeInfoState : State
         "\n\nThe placement of loudspeakers or other sound sources will also create excitation of certain modes. A subwoofer intending to " +
         "excite low frequency modes will benefit from placement in a corner, whereas a reference monitor should be distanced from walls.";
 
-    private string treatmentHeader = "How Can Modes Be Treated?";
+    private readonly string treatmentHeader = "How Can Modes Be Treated?";
 
-    private string treatmentText = "Architectural design considerations can lessen the adverse effects of room modes by:" +
+    private readonly string treatmentText = "Architectural design considerations can lessen the adverse effects of room modes by:" +
         "\n\t- Proportioning room dimensions" +
         "\n\t- Splaying (canting) parallel walls" +
         "\n\t- Increasing room dimensions" +
@@ -44,6 +44,22 @@ public class ModeInfoState : State
         "\n\t- Loudspeakers and listening positions should avoid high energy regions" +
         "\n\t- Loudspeaker EQ cannot improve the entire room response" +
         "\n\t- Room response measurement should inform treatment decisions";
+
+    private readonly string creditsHeader = "Credits";
+
+    private readonly string creditsText = "App designer, programmer: Aaron Geldert" +
+        "\nUniversity of Miami, Frost School of Music" +
+        "\nB.S. Music Engineering, '20" +
+        "\n\nThanks to:" +
+        "\nUniversity of Miami Magic Leap Lab" +
+        "\nUniversity of Miami IT Innovate" +
+        "\nDr. Christopher Bennett, advisor" +
+        "\n\nReferences:" +
+        "\nPohlmann, K. C. (2015). The Master Handbook of Acoustics. New York: McGraw-Hill." +
+        "\nHuber, D. (2013). Modern recording techniques - 8th edition. Burlington: Focal Press." +
+        "\nRoom EQ Wizard V5.19 (2019), John Mulcahy. www.roomeqwizard.com" +
+        "\nOlive Tree Lab Suite 4.0 (2019), Mediterranean Acoustics. www.mediterraneanacoustics.com" +
+        "\n\nCopyright Aaron Geldert 2020.";
 
     public ModeInfoState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
@@ -91,14 +107,14 @@ public class ModeInfoState : State
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Up:
-                if (currentInfo == ModeInfo.Treatment)
+                if (currentInfo == ModeInfo.Credits)
                     currentInfo = ModeInfo.Info;
                 else currentInfo++;
                 UpdateText();
                 break;
             case MLInputControllerTouchpadGestureDirection.Down:
                 if (currentInfo == ModeInfo.Info)
-                    currentInfo = ModeInfo.Treatment;
+                    currentInfo = ModeInfo.Credits;
                 else currentInfo--;
                 UpdateText();
                 break;
@@ -116,7 +132,4 @@ public class ModeInfoState : State
         header.text = headerTexts[(int)currentInfo];
         columns[3].text = bodyTexts[(int)currentInfo];
     }
-
-    
-
-    }
+}
