@@ -80,16 +80,18 @@ public class ModeInfoState : State
         userControl.EnableBeam(false);
         currentInfo = ModeInfo.Info;
 
-        headerTexts = new string[3];
-        bodyTexts = new string[3];
+        headerTexts = new string[4];
+        bodyTexts = new string[4];
 
         headerTexts[0] = infoHeader;
         headerTexts[1] = effectsHeader;
         headerTexts[2] = treatmentHeader;
+        headerTexts[3] = creditsHeader;
 
         bodyTexts[0] = infoText;
         bodyTexts[1] = effectsText;
         bodyTexts[2] = treatmentText;
+        bodyTexts[3] = creditsText;
 
         UpdateText();
     }
