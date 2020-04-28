@@ -54,6 +54,7 @@ public class ModePlotState : State
     {
         GLOBALS.isMeshing = false;
         userControl.plot.SetActive(false);
+        ClearText();
     }
 
     public override void OnTriggerUp()

@@ -29,6 +29,7 @@ public class HeightState : State
     public override void OnStateExit()
     {
         userControl.EnableBeam(false);
+        ClearText();
     }
 
     public override void OnTriggerUp()

@@ -25,7 +25,7 @@ public class WidthViewState : State
 
     public override void OnStateExit()
     {
-
+        ClearText();
     }
 
     public override void OnTriggerUp()

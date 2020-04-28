@@ -32,4 +32,13 @@ public abstract class State
         controller = userControl._controller;
         timer = 0.5f;
     }
+
+    public void ClearText()
+    {
+        header.text = "";
+        columns[0].text = "";
+        columns[1].text = "";
+        columns[2].text = "";
+        columns[3].text = "";
+    }
 }

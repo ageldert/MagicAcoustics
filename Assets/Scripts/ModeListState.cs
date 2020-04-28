@@ -36,10 +36,7 @@ public class ModeListState : State
     public override void OnStateExit()
     {
         GLOBALS.isMeshing = false;
-        header.text = "";
-        columns[0].text = "";
-        columns[1].text = "";
-        columns[2].text = "";
+        ClearText();
     }
 
     public override void OnTouchGesture()

@@ -55,18 +55,15 @@ public enum StateEnum
     Height,
     HeightView,
     ModeList,
+    ModeInfo,
     RoomDim,
     ModePlot,
     WaveView
 }
 
-/* 
- *  Create plot of lines of modes 
- *
- *  Horizontal swipe during mode view for:
- *      - Axial Mode Display
- *      - Tangential, Oblique Mode Display
- *      - Mode frequency lines
- *      - Room volume, surface area, MFP
- *      
- */
+public enum ModeInfo
+{
+    Info,
+    Effects,
+    Treatment
+}

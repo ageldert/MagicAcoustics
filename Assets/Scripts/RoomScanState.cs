@@ -12,15 +12,16 @@ public class RoomScanState : State
     public override void Tick()
     {
         // Update
+        userControl.EnableBeam(false);
         userControl.meshingControl.UpdateMeshMaterial();
     }
 
     public override void OnStateEnter()
     {
+        userControl.EnableBeam(false);
         GLOBALS.meshVisible = true;
         GLOBALS.isMeshing = true;
         GLOBALS.measuringDim = Dim.none;
-        userControl.EnableBeam(false);
         header.text = "SCANNING ROOM...\n" +
                       "Move around the room until most surfaces are covered!";
     }
@@ -28,6 +29,7 @@ public class RoomScanState : State
     public override void OnStateExit()
     {
         GLOBALS.isMeshing = false;
+        ClearText();
     }
 
     public override void OnBumperUp()

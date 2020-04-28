@@ -31,7 +31,7 @@ public class UserControl : MonoBehaviour
         _controlBeam = GetComponent<LineRenderer>();
         _controlHelp = GetComponent<ControlHelp>();
         plot.SetActive(false);
-
+        EnableBeam(false);
         SetState(new RoomScanState(this, header, columns));
         roomModel = new RoomModel();
     }
@@ -104,7 +104,6 @@ public class UserControl : MonoBehaviour
         {
             currentState.OnHomeUp();
         }
-        
     }
 
     private void OnTriggerUp(byte controllerId, float pressure)

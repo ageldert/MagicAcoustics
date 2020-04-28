@@ -25,7 +25,8 @@ public class HeightViewState : State
 
     public override void OnStateExit()
     {
-        
+        ClearText();
+
     }
 
     public override void OnTriggerUp()

@@ -26,17 +26,14 @@ public class WaveViewState : State
         userControl.EnableBeam(false);
 
         userControl.standingWave.SetActive(true);
-        DisplayHeaderWithOrder();
         userControl.standingWave.InitializeAnimation();
+        DisplayHeaderWithOrder();
     }
 
     public override void OnStateExit()
     {
         userControl.standingWave.SetActive(false);
-        header.text = "";
-        columns[0].text = "";
-        columns[1].text = "";
-        columns[2].text = "";
+        ClearText();
     }
 
     public override void OnBumperUp()
@@ -64,7 +61,7 @@ public class WaveViewState : State
                 userControl.SetState(new ModePlotState(userControl, header, columns));
                 break;
             case MLInputControllerTouchpadGestureDirection.Right:
-                // next state
+                userControl.SetState(new ModeInfoState(userControl, header, columns));
                 break;
             case MLInputControllerTouchpadGestureDirection.Up:
                 // higher order

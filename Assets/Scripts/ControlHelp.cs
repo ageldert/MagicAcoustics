@@ -77,6 +77,16 @@ public class ControlHelp : MonoBehaviour
                 homeText.text = "HOME\nRestart Scan";
                 padText.text = "";
                 break;
+            case StateEnum.ModeInfo:
+                triggerText.text = "";
+                bumperText.text = "";
+                homeText.text = "";
+                padText.text = "SWIPE PAD\n" +
+                    "^ More Info\n" +
+                    "v More Info\n" +
+                    "< Standing Wave\n" +
+                    "> Room Dimensions";
+                break;
             case StateEnum.RoomDim:
                 triggerText.text = "";
                 bumperText.text = "";
@@ -105,7 +115,8 @@ public class ControlHelp : MonoBehaviour
                 triggerText.text = "TRIGGER\nChange Dimension";
                 bumperText.text = "BUMPER\nToggle Pressure/Velocity";
                 homeText.text = "";
-                padText.text = "SWIPE PAD\n^ Increase Order\n" +
+                padText.text = "SWIPE PAD\n" +
+                    "^ Increase Order\n" +
                     "v Decrease Order\n" +
                     "< Mode Plot\n" +
                     "> Mode Information";

@@ -15,7 +15,6 @@ public class RoomDimState : State
     {
         if (timer >= Mathf.Epsilon)
             timer -= Time.deltaTime;
-
     }
 
     public override void OnStateEnter()
@@ -31,14 +30,16 @@ public class RoomDimState : State
             "Width: " + userControl.roomModel.dimensions.x.ToString(GLOBALS.format) + " ft\n" +
             "Height: " + userControl.roomModel.dimensions.y.ToString(GLOBALS.format) + " ft\n";
 
-        columns[1].text += "Surface Area: " + userControl.roomModel.surfaceArea.ToString("F1") + " ft²\n";
+        columns[1].text += "\nSurface Area: " + userControl.roomModel.surfaceArea.ToString("F1") + " ft²\n";
         columns[1].text += "Volume: " + userControl.roomModel.volume.ToString("F0") + " ft³\n";
         columns[1].text += "Mean Free Path: " + userControl.roomModel.meanFreePath.ToString(GLOBALS.format) + " ft\n";
+        columns[3].text = "";
     }
 
     public override void OnStateExit()
     {
         GLOBALS.isMeshing = false;
+        ClearText();
     }
 
     public override void OnTouchGesture()
@@ -48,7 +49,7 @@ public class RoomDimState : State
         switch (controller.TouchpadGesture.Direction)
         {
             case MLInputControllerTouchpadGestureDirection.Left:
-
+                userControl.SetState(new ModeInfoState(userControl, header, columns));
                 break;
             case MLInputControllerTouchpadGestureDirection.Right:
                 userControl.SetState(new ModeListState(userControl, header, columns));
