@@ -63,7 +63,7 @@ public class ModeInfoState : State
 
     public ModeInfoState(UserControl userControl, Text header, List<Text> columns) : base(userControl, header, columns)
     {
-        myState = StateEnum.RoomDim;
+        myState = StateEnum.ModeInfo;
     }
 
     public override void Tick()

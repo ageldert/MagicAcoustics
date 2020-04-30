@@ -47,6 +47,7 @@ public enum ModeType
 
 public enum StateEnum
 {
+    Welcome,
     RoomScan,
     Length,
     LengthView,

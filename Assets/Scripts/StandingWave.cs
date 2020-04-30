@@ -44,7 +44,6 @@ public class StandingWave : MonoBehaviour
         {
             Animate();
         }
-        
     }
 
     public void SetActive(bool b)

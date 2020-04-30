@@ -35,6 +35,12 @@ public class ControlHelp : MonoBehaviour
         // updates controller text with instructions for that state
         switch (state.myState)
         {
+            case StateEnum.Welcome:
+                triggerText.text = "TRIGGER\nClick to Continue!";
+                bumperText.text = "BUMPER";
+                homeText.text = "HOME";
+                padText.text = "TOUCHPAD";
+                break;
             case StateEnum.RoomScan:
                 triggerText.text = "TRIGGER\nFinish Scan";
                 bumperText.text = "BUMPER\nPause/Resume Meshing";

@@ -32,7 +32,7 @@ public class UserControl : MonoBehaviour
         _controlHelp = GetComponent<ControlHelp>();
         plot.SetActive(false);
         EnableBeam(false);
-        SetState(new RoomScanState(this, header, columns));
+        SetState(new WelcomeState(this, header, columns));
         roomModel = new RoomModel();
     }
 

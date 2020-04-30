@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 5692209941256460328}
   - component: {fileID: 5692209941256460333}
   - component: {fileID: 5692209941256460332}
+  - component: {fileID: 5692209941256460334}
   m_Layer: 0
   m_Name: InputController
   m_TagString: Untagged
@@ -850,3 +851,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51a8e1b9e893f04d952ef91c4aeb428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5692209941256460334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692209941256460331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c86d019ada0de748826eaeb376cb882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controllerModel: {fileID: 0}
+  _trigger: {fileID: 0}
+  _touchpad: {fileID: 0}
+  _homeButton: {fileID: 0}
+  _bumperButton: {fileID: 0}
+  _touchIndicatorTransform: {fileID: 0}
