@@ -23,7 +23,7 @@ public class ControlHelp : MonoBehaviour
 
     private void Update()
     {
-        // fix materials
+        // override ML changes in material
         triggerMesh.material = triggerMaterial;
         bumperMesh.material = bumperMaterial;
         homeMesh.material = homeMaterial;
@@ -131,7 +131,5 @@ public class ControlHelp : MonoBehaviour
 
                 break;
         }
-        
     }
-
 }
